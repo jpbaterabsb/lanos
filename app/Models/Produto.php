@@ -36,6 +36,7 @@ class Produto extends Eloquent
 	protected $fillable = [
 		'status',
 		'quantidade',
+        'descricao',
 		'valor',
 		'categoria_id'
 	];

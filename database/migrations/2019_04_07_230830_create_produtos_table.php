@@ -16,6 +16,7 @@ class CreateProdutosTable extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('status', ['0', '1']);
+            $table->string('descricao');
             $table->integer('quantidade');
             $table->decimal('valor');
             $table->bigInteger('categoria_id')->unsigned();
@@ -25,6 +26,7 @@ class CreateProdutosTable extends Migration
         Schema::table('produtos', function($table) {
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
         });
+
     }
 
     /**
