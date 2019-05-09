@@ -23,19 +23,22 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class OrdemServicosHasProduto extends Eloquent
 {
-	public $incrementing = false;
+	public $incrementing = true;
 	public $timestamps = false;
 
 	protected $casts = [
 		'ordem_servicos_id' => 'int',
 		'produtos_id' => 'int',
-		'quantidade' => 'int'
+		'quantidade' => 'int',
+        'id' => 'int'
 	];
 
 	protected $fillable = [
 		'ordem_servicos_id',
 		'produtos_id',
-		'quantidade'
+		'valor_venda',
+        'data',
+        'id'
 	];
 
 	public function ordem_servico()

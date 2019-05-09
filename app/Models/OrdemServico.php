@@ -37,7 +37,8 @@ class OrdemServico extends Eloquent
 		'descricao',
 		'cliente_id',
 		'user_id',
-		'status'
+		'status',
+        'cliente'
 	];
 
 	public function cliente()
