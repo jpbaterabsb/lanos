@@ -9,15 +9,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\ObjectHelper;
 use App\Models\Cliente as Cliente;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
 use Hash;
 class ClienteController extends Controller {
 
     public function index()
     {
-        $data['Clientes'] = Cliente::all();
+        $data['Clientes'] = Cliente::query()->where('status','1')->get();
         return view('Cliente/index',$data);
     }
     public function add()
@@ -32,8 +33,9 @@ class ClienteController extends Controller {
             'email' => Input::get('email'),
             'telefone' => Input::get('telefone'),
             'endereco' => Input::get('endereco'),
+            'status' => 1
         );
-        $Cliente_id = Cliente::insert($Cliente_data);
+        Cliente::insert($Cliente_data);
         return redirect('Cliente')->with('message', 'Cliente successfully added');
     }
     public function delete($id)
@@ -67,7 +69,7 @@ class ClienteController extends Controller {
     public function changeStatus($id)
     {
         $Cliente=Cliente::find($id);
-        $Cliente->status=!$Cliente->status;
+        $Cliente->status= !$Cliente->status;
         $Cliente->save();
         return redirect('Cliente')->with('message', 'Change Cliente status successfully');
     }
@@ -76,5 +78,30 @@ class ClienteController extends Controller {
         $data['Cliente']=Cliente::find($id);
         return view('Cliente/view',$data);
 
+    }
+
+    public function filter(Request $request)
+    {
+        $cliente = Cliente::query();
+       if (!ObjectHelper::IsNullOrEmptyString($request->nome)){
+            $cliente->where('nome','like','%'.$request->nome.'%');
+       }
+        if (!ObjectHelper::IsNullOrEmptyString($request->telefone)){
+            $cliente->where('telefone','like','%'.$request->telefone.'%');
+        }
+        if (!ObjectHelper::IsNullOrEmptyString($request->email)){
+            $cliente->where('email','=',$request->email);
+        }
+        if (!ObjectHelper::IsNullOrEmptyString($request->cpf)){
+            $cliente->where('cpf','=',$request->cpf);
+        }
+        if (!ObjectHelper::IsNullOrEmptyString($request->endereco)){
+            $cliente->where('endereco','like','%'.$request->cpf.'%');
+        }
+
+        $cliente = ObjectHelper::getQueryStatus($cliente,$request->status);
+
+        $data['Clientes'] = $cliente->get();
+        return view('Cliente/index',$data);
     }
 }

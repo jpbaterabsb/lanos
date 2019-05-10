@@ -10,6 +10,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Helper\ObjectHelper;
 use App\Models\Categoria;
 use App\Models\Produto as Produto;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class ProdutoController extends Controller {
 
     public function index()
     {
-        $data['Produtos'] = Produto::all();
+        $data['Produtos'] = Produto::query()->where('status','1')->get();
+        $data['categorias'] = Categoria::query()->where('status','1')->get();
         return view('Produto/index',$data);
     }
     public function add()
@@ -36,6 +38,7 @@ class ProdutoController extends Controller {
             'valor' => $this->toNumber(Input::get('valor')),
             'categoria_id' => Input::get('categoria'),
             'descricao' => Input::get('descricao'),
+            'status' => true
         );
         $Produto_id = Produto::insert($Produto_data);
         return redirect('Produto')->with('message', 'Produto successfully added');
@@ -107,4 +110,21 @@ class ProdutoController extends Controller {
         return response()->json(array("suggestions" => $results));
     }
 
+    public function filter(Request $request)
+    {
+        $produto = Produto::query();
+
+        if (!ObjectHelper::IsNullOrEmptyString($request->categoria)){
+            $produto->where('categoria_id',$request->categoria);
+        }
+        if (!ObjectHelper::IsNullOrEmptyString($request->descricao)){
+            $produto->where('descricao','like','%'.$request->descricao.'%');
+        }
+
+        $produto = ObjectHelper::getQueryStatus($produto,$request->status);
+        
+        $data['Produtos'] = $produto->get();
+        $data['categorias'] = Categoria::all();
+        return view('Produto/index',$data);
+    }
 }

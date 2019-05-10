@@ -20,7 +20,7 @@ class CreateClientesTable extends Migration
             $table->string('telefone');
             $table->string('email')->unique();
             $table->string('endereco');
-            $table->enum('status', ['0', '1']);
+            $table->boolean('status');
             $table->timestamps();
         });
     }

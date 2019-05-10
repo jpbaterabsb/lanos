@@ -5,6 +5,9 @@
  * User: joaopaulooliveirasantos
  * Date: 2019-04-07
  * Time: 23:56
+
+composer dump-autoload
+ * composer clear-cache
  */
 
 namespace App\Http\Controllers;
@@ -12,12 +15,12 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\OrdemServico as OrdemServico;
 use App\Models\OrdemServicosHasProduto;
+use App\Helper\ObjectHelper as ObjectHelper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
 use Hash;
 class OrdemServicoController extends Controller {
 
@@ -28,21 +31,20 @@ class OrdemServicoController extends Controller {
 
     public function index()
     {
-        $data['OrdemServicos'] = OrdemServico::all();
+
+        $data['OrdemServicos'] = OrdemServico::query()->where('status','0')->get();
+        $data['clientes'] = Cliente::all();
+
         return view('OrdemServico/index',$data);
     }
     public function add()
     {
+
         $data['clientes'] = Cliente::all();
         return view('OrdemServico/add',$data);
     }
     public function addPost(Request $request)
     {
-        $validatedData = $request->validate([
-            'descricao' => 'required|unique:posts|max:255'
-        ]);
-
-
         $produtos = json_decode(Input::get('listaProduto'));
 
         $OrdemServico_data = array(
@@ -50,6 +52,7 @@ class OrdemServicoController extends Controller {
             'cliente_id' => Input::get('cliente'),
             'user_id'=> Auth::user()->getAuthIdentifier(),
             'created_at' => Carbon::now(),
+            'status' => '0'
         );
 
         $OrdemServico_id = OrdemServico::create($OrdemServico_data);
@@ -74,22 +77,23 @@ class OrdemServicoController extends Controller {
     }
     public function edit($id)
     {
+
         $ordemServico = OrdemServico::find($id);
         $data['OrdemServico']=$ordemServico;
         $data['OrdemServico']['cliente']=$ordemServico->cliente;
         $data['clientes'] = Cliente::all();
         $data['listaProduto'] = json_encode(DB::select('
-        SELECT 
-            op.id as opid,
-            p.id as pid,
-            p.descricao,
-            op.valor_venda
-        FROM
-            ordem_servicos o
-                INNER JOIN
-            ordem_servicos_has_produtos op ON o.id = op.ordem_servicos_id
-                INNER JOIN
-            produtos p on p.id = op.produtos_id where o.id = ?;
+                SELECT 
+                    op.id as opid,
+                    p.id as pid,
+                    p.descricao,
+                    op.valor_venda
+                FROM
+                    ordem_servicos o
+                        INNER JOIN
+                    ordem_servicos_has_produtos op ON o.id = op.ordem_servicos_id
+                        INNER JOIN
+                    produtos p on p.id = op.produtos_id where o.id = ?;
         ',[$id]));
         return view('OrdemServico/edit',$data);
     }
@@ -101,7 +105,7 @@ class OrdemServicoController extends Controller {
         $opid = [];
         foreach ($listaProduto as $produto){
 
-            if ($this->IsNullOrEmptyString($produto->opid)){
+            if (ObjectHelper::IsNullOrEmptyString($produto->opid)){
                $os = OrdemServicosHasProduto::create([
                     'ordem_servicos_id' => $request->OrdemServico_id,
                     'produtos_id' => $produto->id,
@@ -141,11 +145,6 @@ class OrdemServicoController extends Controller {
         return redirect('OrdemServico')->with('message', 'OrdemServico Updated successfully');
     }
 
-
-    function IsNullOrEmptyString($str){
-        return (!isset($str) || trim($str) === '');
-    }
-
     public function changeStatus($id)
     {
         $OrdemServico=OrdemServico::find($id);
@@ -155,8 +154,44 @@ class OrdemServicoController extends Controller {
     }
     public function view($id)
     {
-        $data['OrdemServico']=OrdemServico::find($id);
+        $os = OrdemServico::find($id);
+        $data['OrdemServico']=$os;
+        $data['produtos']=$os->produtos;
+        $data['cliente']=$os->cliente;
+        $data['user']=$os->user;
         return view('OrdemServico/view',$data);
 
+    }
+
+    public function filter(Request $request)
+    {
+
+        $ordem_servico = OrdemServico::query();
+
+        if (!ObjectHelper::IsNullOrEmptyString($request->cliente)){
+           $ordem_servico->where('cliente_id',$request->cliente);
+        }
+        if (!ObjectHelper::IsNullOrEmptyString($request->id)){
+            $ordem_servico->where('id',$request->id);
+        }
+        if (!ObjectHelper::IsNullOrEmptyString($request->reservationtime)){
+            $times = explode("-",trim($request->reservationtime));
+
+            $datas = [];
+
+            foreach ($times as $time){
+                $data = strtotime($time);
+                array_push($datas,$data);
+            }
+
+            $ordem_servico->whereBetween('created_at',$datas);
+        }
+
+        $ordem_servico = ObjectHelper::getQueryStatus($ordem_servico,$request->status);
+
+        $bag = array();
+        $bag['OrdemServicos'] = $ordem_servico->get();
+        $bag['clientes'] = Cliente::all();
+        return view('OrdemServico/index',$bag);
     }
 }

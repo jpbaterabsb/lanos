@@ -33,6 +33,7 @@ Route::group(array('prefix' => 'Categorias'), function()
     Route::post('/edit-Categorias-post', 'CategoriasController@editPost');
     Route::get('/change-status-Categorias/{id}', 'CategoriasController@changeStatus');
     Route::get('/view-Categorias/{id}', 'CategoriasController@view');
+    Route::get('/filter', 'CategoriasController@filter');
 });
 
 Route::group(array('prefix' => 'Produto'), function()
@@ -46,6 +47,7 @@ Route::group(array('prefix' => 'Produto'), function()
     Route::get('/change-status-Produto/{id}', 'ProdutoController@changeStatus');
     Route::get('/view-Produto/{id}', 'ProdutoController@view');
     Route::get('/nome','ProdutoController@pesquisarNomeProduto');
+    Route::get('/filter', 'ProdutoController@filter');
 });
 
 Route::group(array('prefix' => 'User'), function()
@@ -58,6 +60,7 @@ Route::group(array('prefix' => 'User'), function()
     Route::post('/edit-User-post', 'UserController@editPost');
     Route::get('/change-status-User/{id}', 'UserController@changeStatus');
     Route::get('/view-User/{id}', 'UserController@view');
+    Route::get('/filter', 'UserController@filter');
 });
 
 Route::group(array('prefix' => 'OrdemServico'), function()
@@ -70,6 +73,7 @@ Route::group(array('prefix' => 'OrdemServico'), function()
     Route::post('/edit-OrdemServico-post', 'OrdemServicoController@editPost');
     Route::get('/change-status-OrdemServico/{id}', 'OrdemServicoController@changeStatus');
     Route::get('/view-OrdemServico/{id}', 'OrdemServicoController@view');
+    Route::get('/filter', 'OrdemServicoController@filter');
 });
 
 Route::group(array('prefix' => 'Cliente'), function()
@@ -82,4 +86,5 @@ Route::group(array('prefix' => 'Cliente'), function()
     Route::post('/edit-Cliente-post', 'ClienteController@editPost');
     Route::get('/change-status-Cliente/{id}', 'ClienteController@changeStatus');
     Route::get('/view-Cliente/{id}', 'ClienteController@view');
+    Route::get('/filter', 'ClienteController@filter');
 });

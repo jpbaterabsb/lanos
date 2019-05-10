@@ -62,3 +62,13 @@ function toAmericanMoney(value) {
     value = value.replace(",",".");
     return parseFloat(value).toFixed(2);
 }
+
+function getDatas(dataFromView) {
+    let datas = [];
+    for (let stringData in dataFromView){
+        let partesData = data.split('/');
+        let data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+        datas.push(data);
+    }
+    return datas;
+}

@@ -18,7 +18,7 @@ class CreateOrdemServicosTable extends Migration
             $table->string('descricao');
             $table->bigInteger('cliente_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->enum('status', ['ABERTA', 'FECHADA']);
+            $table->boolean('status');
             $table->timestamps();
         });
 

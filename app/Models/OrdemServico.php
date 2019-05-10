@@ -54,6 +54,6 @@ class OrdemServico extends Eloquent
 	public function produtos()
 	{
 		return $this->belongsToMany(\App\Models\Produto::class, 'ordem_servicos_has_produtos', 'ordem_servicos_id', 'produtos_id')
-					->withPivot('quantidade');
+					->withPivot('valor_venda');
 	}
 }

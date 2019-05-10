@@ -17,7 +17,7 @@ class CategoriasController extends Controller {
 
     public function index()
     {
-        $data['Categoriass'] = Categoria::all();
+        $data['Categoriass'] = Categoria::query()->where('status','1')->get();
         return view('Categorias/index',$data);
     }
     public function add()
@@ -28,6 +28,7 @@ class CategoriasController extends Controller {
     {
         $Categorias_data = array(
             'nome' => Input::get('nome'),
+            'status' => true
         );
         $Categorias_id = Categoria::insert($Categorias_data);
         return redirect('Categorias')->with('message', 'Categorias successfully added');

@@ -4,13 +4,13 @@
     <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/jquery.mask.js')}}"></script>
     <script src="{{asset('js/util.js')}}"></script>
+    <form role="form" method="post" action="{{Request::root()}}/Cliente/add-Cliente-post" >
+    <div class="box box-solid box-primary">
 
-    <div class="box">
         <div class="box-header">
             <h2>Adicionar Cliente</h2>
         </div>
         <div class="box-body">
-            <form role="form" method="post" action="{{Request::root()}}/Cliente/add-Cliente-post" >
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="nome">Nome:</label>
@@ -34,10 +34,11 @@
                     <label for="endereco">Endereco:</label>
                     <input type="text" class="form-control" id="endereco" name="endereco">
                 </div>
-            </form>
+
         </div>
         <div class="box-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>
+    </form>
 @endsection

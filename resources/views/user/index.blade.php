@@ -27,8 +27,8 @@
                     <td> <a href="{{Request::root()}}/User/view-User/{{$User->id}}" > {{$User->name }}</a> </td>
 
                     <td>
-{{--                        <a href="{{Request::root()}}/User/change-status-User/{{$User->id }}" > @if($User->status==0) {{"Activate"}}  @else {{"Dectivate"}} @endif </a>--}}
-                        <a href="{{Request::root()}}/User/edit-User/{{$User->id}}" >Edit</a>
+{{--                        <a href="{{Request::root()}}/User/change-status-User/{{$User->id }}" > @if($User->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>--}}
+                        <a href="{{Request::root()}}/User/edit-User/{{$User->id}}" >Editar</a>
                         <a href="{{Request::root()}}/User/delete-User/{{$User->id}}" onclick="return confirm('are you sure to delete')">Delete</a>
                     </td>
 

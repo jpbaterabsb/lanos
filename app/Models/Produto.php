@@ -38,7 +38,8 @@ class Produto extends Eloquent
 		'quantidade',
         'descricao',
 		'valor',
-		'categoria_id'
+		'categoria_id',
+        'status'
 	];
 
 	public function categoria()
