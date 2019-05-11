@@ -74,6 +74,7 @@ Route::group(array('prefix' => 'OrdemServico'), function()
     Route::get('/change-status-OrdemServico/{id}', 'OrdemServicoController@changeStatus');
     Route::get('/view-OrdemServico/{id}', 'OrdemServicoController@view');
     Route::get('/filter', 'OrdemServicoController@filter');
+    Route::get('/pdf/{id}', 'OrdemServicoController@pdf');
 });
 
 Route::group(array('prefix' => 'Cliente'), function()

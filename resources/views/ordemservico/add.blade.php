@@ -23,10 +23,6 @@
             <form id="cadastro" role="form" method="post" action="{{Request::root()}}/OrdemServico/add-OrdemServico-post" >
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
-                    <label for="descricao">Descricao:</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao">
-                </div>
-                <div class="form-group">
                     <label for="cliente">Cliente:</label>
 
                     <select class="form-control select2" id="cliente" name="cliente">
@@ -66,6 +62,11 @@
                     </tr>
                     </tfoot>
                 </table>
+
+                <div class="form-group">
+                    <label for="descricao">Descricao:</label>
+                    <textarea rows="3" placeholder="Opicional" class="form-control" id="descricao" name="descricao"></textarea>
+                </div>
             </form>
         </div>
 

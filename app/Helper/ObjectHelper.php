@@ -26,4 +26,16 @@ class ObjectHelper
     public static function toMoneyFormat($valor){
       return 'R$ ' . number_format($valor, 2, ',', '.');
     }
+
+    public static function calcularTotalArray($valores){
+        $total =0;
+        foreach ($valores as $valor){
+            $total+= $valor->pivot->valor_venda;;
+        }
+        return $total;
+    }
+
+    public static function getTotalArrayMoneyFormat($valores){
+      return  self::toMoneyFormat(self::calcularTotalArray($valores));
+    }
 }

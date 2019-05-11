@@ -181,6 +181,10 @@ return [
          */
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
+        /*
+         * GERAR PDFF
+         */
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /**
          * Gerar models apartir do database
@@ -238,8 +242,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Helper' => App\Helper\ObjectHelper::class
-
+        'Helper' => App\Helper\ObjectHelper::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

@@ -19,12 +19,6 @@
             <form id="editar" role="form" method="post" action="{{Request::root()}}/OrdemServico/edit-OrdemServico-post" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" value="<?php echo $OrdemServico->id ?>"   name="OrdemServico_id">
-
-
-                <div class="form-group">
-                    <label for="descricao">Descricao:</label>
-                    <input type="text" value="<?php echo $OrdemServico->descricao ?>" class="form-control" id="descricao" name="descricao">
-                </div>
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
                     <select class="form-control" id="cliente" name="cliente">
@@ -65,7 +59,10 @@
                     </tr>
                     </tfoot>
                 </table>
-
+                <div class="form-group">
+                    <label for="descricao">Descricao:</label>
+                    <textarea rows="3" value="<?php echo $OrdemServico->descricao ?>" placeholder="opcional" class="form-control" id="descricao" name="descricao"></textarea>
+                </div>
                 <button type="button" id="salvar" class="btn btn-primary" onclick="subimeter()">Salvar</button>
             </form>
         </div>

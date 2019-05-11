@@ -115,6 +115,7 @@
                             <td>
                                 <a href="{{Request::root()}}/OrdemServico/change-status-OrdemServico/{{$OrdemServico->id }}" > @if($OrdemServico->status==0) {{"Fechar"}}  @else {{"Abrir"}} @endif </a>
                                 <a href="{{Request::root()}}/OrdemServico/edit-OrdemServico/{{$OrdemServico->id}}" >Editar</a>
+                                <a href="{{Request::root()}}/OrdemServico/pdf/{{$OrdemServico->id}}" >Gerar PDF</a>
                                 {{--<a href="{{Request::root()}}/OrdemServico/delete-OrdemServico/{{$OrdemServico->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
                             </td>
 

@@ -5,12 +5,13 @@
  * User: joaopaulooliveirasantos
  * Date: 2019-04-07
  * Time: 23:56
-
-composer dump-autoload
+ *
+ * composer dump-autoload
  * composer clear-cache
  */
 
 namespace App\Http\Controllers;
+
 
 use App\Models\Cliente;
 use App\Models\OrdemServico as OrdemServico;
@@ -22,7 +23,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Hash;
-class OrdemServicoController extends Controller {
+
+use Barryvdh\DomPDF\Facade as PDF;
+
+
+class OrdemServicoController extends Controller
+{
 
     public function __construct()
     {
@@ -32,17 +38,19 @@ class OrdemServicoController extends Controller {
     public function index()
     {
 
-        $data['OrdemServicos'] = OrdemServico::query()->where('status','0')->get();
+        $data['OrdemServicos'] = OrdemServico::query()->where('status', '0')->get();
         $data['clientes'] = Cliente::all();
 
-        return view('OrdemServico/index',$data);
+        return view('OrdemServico/index', $data);
     }
+
     public function add()
     {
 
         $data['clientes'] = Cliente::all();
-        return view('OrdemServico/add',$data);
+        return view('OrdemServico/add', $data);
     }
+
     public function addPost(Request $request)
     {
         $produtos = json_decode(Input::get('listaProduto'));
@@ -50,14 +58,14 @@ class OrdemServicoController extends Controller {
         $OrdemServico_data = array(
             'descricao' => Input::get('descricao'),
             'cliente_id' => Input::get('cliente'),
-            'user_id'=> Auth::user()->getAuthIdentifier(),
+            'user_id' => Auth::user()->getAuthIdentifier(),
             'created_at' => Carbon::now(),
             'status' => '0'
         );
 
         $OrdemServico_id = OrdemServico::create($OrdemServico_data);
 
-        foreach ($produtos as $produto){
+        foreach ($produtos as $produto) {
             $ordemServicosProduto = array(
                 'ordem_servicos_id' => $OrdemServico_id->id,
                 'produtos_id' => $produto->id,
@@ -69,18 +77,20 @@ class OrdemServicoController extends Controller {
 
         return redirect('OrdemServico')->with('message', 'OrdemServico successfully added');
     }
+
     public function delete($id)
     {
-        $OrdemServico=OrdemServico::find($id);
+        $OrdemServico = OrdemServico::find($id);
         $OrdemServico->delete();
         return redirect('OrdemServico')->with('message', 'OrdemServico deleted successfully.');
     }
+
     public function edit($id)
     {
 
         $ordemServico = OrdemServico::find($id);
-        $data['OrdemServico']=$ordemServico;
-        $data['OrdemServico']['cliente']=$ordemServico->cliente;
+        $data['OrdemServico'] = $ordemServico;
+        $data['OrdemServico']['cliente'] = $ordemServico->cliente;
         $data['clientes'] = Cliente::all();
         $data['listaProduto'] = json_encode(DB::select('
                 SELECT 
@@ -94,8 +104,8 @@ class OrdemServicoController extends Controller {
                     ordem_servicos_has_produtos op ON o.id = op.ordem_servicos_id
                         INNER JOIN
                     produtos p on p.id = op.produtos_id where o.id = ?;
-        ',[$id]));
-        return view('OrdemServico/edit',$data);
+        ', [$id]));
+        return view('OrdemServico/edit', $data);
     }
 
     public function editPost(Request $request)
@@ -103,16 +113,16 @@ class OrdemServicoController extends Controller {
 
         $listaProduto = json_decode($request->listaProduto);
         $opid = [];
-        foreach ($listaProduto as $produto){
+        foreach ($listaProduto as $produto) {
 
-            if (ObjectHelper::IsNullOrEmptyString($produto->opid)){
-               $os = OrdemServicosHasProduto::create([
+            if (ObjectHelper::IsNullOrEmptyString($produto->opid)) {
+                $os = OrdemServicosHasProduto::create([
                     'ordem_servicos_id' => $request->OrdemServico_id,
                     'produtos_id' => $produto->id,
                     'valor_venda' => $produto->valor
                 ]);
-                array_push($opid,$os->id);
-            }else{
+                array_push($opid, $os->id);
+            } else {
 
                 $ordemServicoHasProduto = OrdemServicosHasProduto::find($produto->opid);
 
@@ -120,7 +130,7 @@ class OrdemServicoController extends Controller {
 
                 $ordemServicoHasProduto->save();
 
-                array_push($opid,$produto->opid);
+                array_push($opid, $produto->opid);
 
             }
 
@@ -128,13 +138,13 @@ class OrdemServicoController extends Controller {
         }
 
         DB::table('ordem_servicos_has_produtos')
-            ->where('ordem_servicos_id',$request->OrdemServico_id)
-            ->whereNotIn('id',$opid)
+            ->where('ordem_servicos_id', $request->OrdemServico_id)
+            ->whereNotIn('id', $opid)
             ->delete();
 
 //        DB::delete("delete from   where  ordem_servicos_id = ? and id not in(?)",[$request->OrdemServico_id,$opid]);
 
-        $OrdemServico=OrdemServico::find($request->OrdemServico_id);
+        $OrdemServico = OrdemServico::find($request->OrdemServico_id);
 
         $OrdemServico_data = array(
             'descricao' => $request->descricao,
@@ -147,19 +157,20 @@ class OrdemServicoController extends Controller {
 
     public function changeStatus($id)
     {
-        $OrdemServico=OrdemServico::find($id);
-        $OrdemServico->status=!$OrdemServico->status;
+        $OrdemServico = OrdemServico::find($id);
+        $OrdemServico->status = !$OrdemServico->status;
         $OrdemServico->save();
         return redirect('OrdemServico')->with('message', 'Change OrdemServico status successfully');
     }
+
     public function view($id)
     {
         $os = OrdemServico::find($id);
-        $data['OrdemServico']=$os;
-        $data['produtos']=$os->produtos;
-        $data['cliente']=$os->cliente;
-        $data['user']=$os->user;
-        return view('OrdemServico/view',$data);
+        $data['OrdemServico'] = $os;
+        $data['produtos'] = $os->produtos;
+        $data['cliente'] = $os->cliente;
+        $data['user'] = $os->user;
+        return view('OrdemServico/view', $data);
 
     }
 
@@ -168,30 +179,43 @@ class OrdemServicoController extends Controller {
 
         $ordem_servico = OrdemServico::query();
 
-        if (!ObjectHelper::IsNullOrEmptyString($request->cliente)){
-           $ordem_servico->where('cliente_id',$request->cliente);
+        if (!ObjectHelper::IsNullOrEmptyString($request->cliente)) {
+            $ordem_servico->where('cliente_id', $request->cliente);
         }
-        if (!ObjectHelper::IsNullOrEmptyString($request->id)){
-            $ordem_servico->where('id',$request->id);
+        if (!ObjectHelper::IsNullOrEmptyString($request->id)) {
+            $ordem_servico->where('id', $request->id);
         }
-        if (!ObjectHelper::IsNullOrEmptyString($request->reservationtime)){
-            $times = explode("-",trim($request->reservationtime));
+        if (!ObjectHelper::IsNullOrEmptyString($request->reservationtime)) {
+            $times = explode("-", trim($request->reservationtime));
 
             $datas = [];
 
-            foreach ($times as $time){
+            foreach ($times as $time) {
                 $data = strtotime($time);
-                array_push($datas,$data);
+                array_push($datas, $data);
             }
 
-            $ordem_servico->whereBetween('created_at',$datas);
+            $ordem_servico->whereBetween('created_at', $datas);
         }
 
-        $ordem_servico = ObjectHelper::getQueryStatus($ordem_servico,$request->status);
+        $ordem_servico = ObjectHelper::getQueryStatus($ordem_servico, $request->status);
 
         $bag = array();
         $bag['OrdemServicos'] = $ordem_servico->get();
         $bag['clientes'] = Cliente::all();
-        return view('OrdemServico/index',$bag);
+        return view('OrdemServico/index', $bag);
+    }
+
+    public function pdf($id)
+    {
+        $ordemServico = OrdemServico::query()->where('id', $id)->first();
+        $data['ordemServico'] = $ordemServico;
+        $data['cliente'] = $ordemServico->cliente;
+        $data['produtos'] = $ordemServico->produtos;
+        $data['user'] = $ordemServico->user;
+
+        return PDF::loadView('pdf.ordem-servico', $data)
+            // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+            ->download('ordem-de-servico.pdf');
     }
 }
