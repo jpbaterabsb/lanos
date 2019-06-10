@@ -2,6 +2,17 @@
 @section('title', 'Lano\'s Informatica - Home')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form role="form" method="post" action="{{Request::root()}}/Categorias/add-Categorias-post" >
     <div class="box box-solid box-primary">
 

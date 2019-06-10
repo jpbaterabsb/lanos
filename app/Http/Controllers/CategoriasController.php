@@ -10,6 +10,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria as Categoria;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Hash;
@@ -24,8 +25,12 @@ class CategoriasController extends Controller {
     {
         return view('Categorias/add');
     }
-    public function addPost()
+    public function addPost(Request $request)
     {
+        $request->validate([
+            'nome' => 'required|min:3|max:50',
+        ]);
+
         $Categorias_data = array(
             'nome' => Input::get('nome'),
             'status' => true

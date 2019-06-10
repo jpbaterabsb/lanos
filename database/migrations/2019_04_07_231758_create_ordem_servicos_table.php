@@ -15,7 +15,7 @@ class CreateOrdemServicosTable extends Migration
     {
         Schema::create('ordem_servicos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('descricao');
+            $table->string('descricao')->nullable();
             $table->bigInteger('cliente_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->boolean('status');

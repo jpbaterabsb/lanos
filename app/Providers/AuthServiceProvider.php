@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Policies\AuthorizationPolicy;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        User::class => AuthorizationPolicy::class,
     ];
 
     /**
@@ -25,6 +28,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        //validate if is admin to side menu.
+        Gate::define('is-admin', function ($user) {
+
+            if ($user->nivel == 'ADMIN'){
+                return true;
+            }
+
+            return false;
+
+        });
         //
     }
 }

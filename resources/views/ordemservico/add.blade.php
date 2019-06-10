@@ -94,6 +94,7 @@
 <script>
 
 function subimeter(){
+
     var table = $('#myTable').DataTable();
     var lista = [];
 

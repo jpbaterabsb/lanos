@@ -41,11 +41,16 @@ class User extends Eloquent
 		'email',
 		'email_verified_at',
 		'password',
-		'remember_token'
+		'remember_token',
+        'nivel'
 	];
 
 	public function ordem_servicos()
 	{
 		return $this->hasMany(\App\Models\OrdemServico::class);
 	}
+
+    public function isAdmin(){
+        return $this->nivel == 'ADMIN';
+    }
 }

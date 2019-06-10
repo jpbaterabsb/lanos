@@ -31,8 +31,16 @@ class ProdutoController extends Controller {
         $data['Categorias'] = Categoria::all();
         return view('Produto/add',$data);
     }
-    public function addPost()
+    public function addPost(Request $request)
     {
+
+        $request->validate([
+            'valor' => 'required|min:1|max:15',
+            'quantidade' => 'required|min:1|max:5',
+            'categoria' => 'required',
+            'descricao' => 'required|min:3|max:100',
+        ]);
+
         $Produto_data = array(
             'quantidade' => Input::get('quantidade'),
             'valor' => $this->toNumber(Input::get('valor')),

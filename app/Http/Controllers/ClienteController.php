@@ -25,8 +25,17 @@ class ClienteController extends Controller {
     {
         return view('Cliente/add');
     }
-    public function addPost()
+    public function addPost(Request $request)
     {
+
+        $request->validate([
+            'nome' => 'required',
+            'cpf' => 'required|unique:clientes,cpf|min:14',
+            'telefone' => 'min:14',
+            'email' => 'required',
+            'endereco' => 'required',
+        ]);
+
         $Cliente_data = array(
             'nome' => Input::get('nome'),
             'cpf' => Input::get('cpf'),

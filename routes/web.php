@@ -11,17 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/perfil', 'UserController@profile')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(array('prefix' => 'dashboard'), function()
+{
+    Route::get('/maisConsumidos', 'DashboardController@maisConsumidos');
+
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(array('prefix' => 'Categorias'), function()
 {
@@ -75,6 +83,8 @@ Route::group(array('prefix' => 'OrdemServico'), function()
     Route::get('/view-OrdemServico/{id}', 'OrdemServicoController@view');
     Route::get('/filter', 'OrdemServicoController@filter');
     Route::get('/pdf/{id}', 'OrdemServicoController@pdf');
+    Route::get('/email/{id}', 'OrdemServicoController@sendMailWithPDFAttached');
+
 });
 
 Route::group(array('prefix' => 'Cliente'), function()
@@ -89,3 +99,7 @@ Route::group(array('prefix' => 'Cliente'), function()
     Route::get('/view-Cliente/{id}', 'ClienteController@view');
     Route::get('/filter', 'ClienteController@filter');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

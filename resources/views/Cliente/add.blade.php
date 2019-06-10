@@ -4,6 +4,17 @@
     <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/jquery.mask.js')}}"></script>
     <script src="{{asset('js/util.js')}}"></script>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form role="form" method="post" action="{{Request::root()}}/Cliente/add-Cliente-post" >
     <div class="box box-solid box-primary">
 

@@ -2,6 +2,18 @@
 @section('title', 'Lano\'s Informatica - Home')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
     <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/jquery.mask.js')}}"></script>
     <script src="{{asset('js/jquery.autocomplete.js')}}"></script>

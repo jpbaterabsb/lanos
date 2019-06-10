@@ -115,7 +115,10 @@
                             <td>
                                 <a href="{{Request::root()}}/OrdemServico/change-status-OrdemServico/{{$OrdemServico->id }}" > @if($OrdemServico->status==0) {{"Fechar"}}  @else {{"Abrir"}} @endif </a>
                                 <a href="{{Request::root()}}/OrdemServico/edit-OrdemServico/{{$OrdemServico->id}}" >Editar</a>
-                                <a href="{{Request::root()}}/OrdemServico/pdf/{{$OrdemServico->id}}" >Gerar PDF</a>
+                                @if(\App\Helper\ObjectHelper::currentUserIsAdmin())
+                                <a href="{{Request::root()}}/OrdemServico/pdf/{{$OrdemServico->id}}" >Imprimir</a>
+                                <a href="{{Request::root()}}/OrdemServico/email/{{$OrdemServico->id}}" >Enviar para o e-mail</a>
+                                @endif
                                 {{--<a href="{{Request::root()}}/OrdemServico/delete-OrdemServico/{{$OrdemServico->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
                             </td>
 
@@ -143,7 +146,8 @@
     <script src="{{asset('js/select2.js')}}"></script>
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/daterangepicker.js')}}"></script>
-    <script src="{{asset('js/util.js')}}"></script>
+    <script src="{{asset('js/daterangepicker.js')}}"></script>
+    <script src="{{asset('js/jquery.mask.js')}}"></script>
 
     <script>
         $(document).ready(function() {

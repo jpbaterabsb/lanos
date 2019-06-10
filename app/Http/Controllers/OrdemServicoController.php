@@ -13,10 +13,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Mail\OrdemServicoMail;
 use App\Models\Cliente;
 use App\Models\OrdemServico as OrdemServico;
 use App\Models\OrdemServicosHasProduto;
 use App\Helper\ObjectHelper as ObjectHelper;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +27,7 @@ use Illuminate\Support\Facades\Input;
 use Hash;
 
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Mail;
 
 
 class OrdemServicoController extends Controller
@@ -37,7 +40,6 @@ class OrdemServicoController extends Controller
 
     public function index()
     {
-
         $data['OrdemServicos'] = OrdemServico::query()->where('status', '0')->get();
         $data['clientes'] = Cliente::all();
 
@@ -46,7 +48,6 @@ class OrdemServicoController extends Controller
 
     public function add()
     {
-
         $data['clientes'] = Cliente::all();
         return view('OrdemServico/add', $data);
     }
@@ -176,7 +177,6 @@ class OrdemServicoController extends Controller
 
     public function filter(Request $request)
     {
-
         $ordem_servico = OrdemServico::query();
 
         if (!ObjectHelper::IsNullOrEmptyString($request->cliente)) {
@@ -191,16 +191,15 @@ class OrdemServicoController extends Controller
             $datas = [];
 
             foreach ($times as $time) {
-                $data = strtotime($time);
+                $data = date('Y-m-d',strtotime($time));
                 array_push($datas, $data);
             }
-
             $ordem_servico->whereBetween('created_at', $datas);
         }
 
-        $ordem_servico = ObjectHelper::getQueryStatus($ordem_servico, $request->status);
-
+        ObjectHelper::getQueryStatus($ordem_servico, $request->status);
         $bag = array();
+
         $bag['OrdemServicos'] = $ordem_servico->get();
         $bag['clientes'] = Cliente::all();
         return view('OrdemServico/index', $bag);
@@ -208,14 +207,28 @@ class OrdemServicoController extends Controller
 
     public function pdf($id)
     {
+        $data = $this->getOrdemSerivcoDataToCreatePDF($id);
+
+        return PDF::loadView('pdf.ordem-servico', $data)
+            // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+            ->download('ordem-de-servico.pdf');
+    }
+
+    public function sendMailWithPDFAttached($id){
+        $data = $this->getOrdemSerivcoDataToCreatePDF($id);
+        Mail::to($data['cliente']->email)
+            ->send(new OrdemServicoMail($data));
+        return redirect('/OrdemServico');
+    }
+
+    public function getOrdemSerivcoDataToCreatePDF($id)
+    {
         $ordemServico = OrdemServico::query()->where('id', $id)->first();
         $data['ordemServico'] = $ordemServico;
         $data['cliente'] = $ordemServico->cliente;
         $data['produtos'] = $ordemServico->produtos;
         $data['user'] = $ordemServico->user;
 
-        return PDF::loadView('pdf.ordem-servico', $data)
-            // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
-            ->download('ordem-de-servico.pdf');
+        return $data;
     }
 }

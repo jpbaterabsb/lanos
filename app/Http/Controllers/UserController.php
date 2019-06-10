@@ -10,8 +10,10 @@
 namespace App\Http\Controllers;
 
 use App\User as User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
-use Hash;
 class UserController extends Controller {
 
     public function index()
@@ -42,17 +44,40 @@ class UserController extends Controller {
     public function edit($id)
     {
         $data['User']=User::find($id);
+        $data['habilitado'] = false;
         return view('User/edit',$data);
     }
-    public function editPost()
+    public function editPost(Request $request)
     {
         $id =Input::get('User_id');
+        $hasAlteracaoSenha = (bool) Input::get('hasAlteracaoSenha');
         $User=User::find($id);
 
         $User_data = array(
             'name' => Input::get('name'),
             'email' => Input::get('email'),
         );
+
+        if ($hasAlteracaoSenha){
+
+            $request->validate([
+                'old-password' => 'required',
+                'new-password' => 'required',
+                'confirm-password' => 'required'
+            ]);
+
+            $oldPassword = Input::get('old-password');
+            $newPassword = Input::get('new-password');
+            $confirmPassword = Input::get('confirm-password');
+
+            if (Hash::check($oldPassword,$User->password) && $newPassword == $confirmPassword){
+                $User_data['password'] = Hash::make($newPassword);
+            }else{
+                return back()->withErrors('Senha nao corresponde com a senha antiga.');
+            }
+
+        }
+
         $User_id = User::where('id', '=', $id)->update($User_data);
         return redirect('User')->with('message', 'User Updated successfully');
     }
@@ -69,6 +94,16 @@ class UserController extends Controller {
     {
         $data['User']=User::find($id);
         return view('User/view',$data);
+
+    }
+
+    public function profile(){
+        $id = Auth::user()->getAuthIdentifier();
+        $data['User'] =  User::query()->where('id',$id)->first();
+        return view('user.edit',$data);
+    }
+
+    public function changePassword(){
 
     }
 }

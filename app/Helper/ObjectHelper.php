@@ -9,6 +9,9 @@
 namespace App\Helper;
 
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 class ObjectHelper
 {
     public static function IsNullOrEmptyString($str){
@@ -37,5 +40,14 @@ class ObjectHelper
 
     public static function getTotalArrayMoneyFormat($valores){
       return  self::toMoneyFormat(self::calcularTotalArray($valores));
+    }
+
+    public static function currentUserIsAdmin(){
+      $user = User::query()->where('id',Auth::user()->getAuthIdentifier())->get();
+      return $user->first()->isAdmin();
+    }
+
+    public  static  function porcentage($value, $totalValue){
+        return number_format($value * 100 / $totalValue,2);
     }
 }
