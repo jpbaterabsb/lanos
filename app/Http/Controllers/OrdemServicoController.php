@@ -40,7 +40,7 @@ class OrdemServicoController extends Controller
 
     public function index()
     {
-        $data['OrdemServicos'] = OrdemServico::query()->where('status', '0')->get();
+        $data['OrdemServicos'] = OrdemServico::query()->where('status', '0')->orderBy('created_at','desc')->get();
         $data['clientes'] = Cliente::all();
 
         return view('OrdemServico/index', $data);
@@ -54,6 +54,11 @@ class OrdemServicoController extends Controller
 
     public function addPost(Request $request)
     {
+
+        $request->validate([
+            'cliente' => 'required'
+        ]);
+
         $produtos = json_decode(Input::get('listaProduto'));
 
         $OrdemServico_data = array(
@@ -111,6 +116,9 @@ class OrdemServicoController extends Controller
 
     public function editPost(Request $request)
     {
+        $request->validate([
+            'cliente' => 'required'
+        ]);
 
         $listaProduto = json_decode($request->listaProduto);
         $opid = [];
@@ -200,7 +208,7 @@ class OrdemServicoController extends Controller
         ObjectHelper::getQueryStatus($ordem_servico, $request->status);
         $bag = array();
 
-        $bag['OrdemServicos'] = $ordem_servico->get();
+        $bag['OrdemServicos'] = $ordem_servico->orderBy('created_at','desc')->get();
         $bag['clientes'] = Cliente::all();
         return view('OrdemServico/index', $bag);
     }

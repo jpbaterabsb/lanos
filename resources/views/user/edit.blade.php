@@ -37,6 +37,23 @@
                 <label for="email">Email:</label>
                 <input type="email" value="<?php echo $User->email ?>" class="form-control" id="email" name="email">
             </div>
+
+            @if(\App\Helper\ObjectHelper::currentUserIsAdmin())
+                <div class="form-group">
+                    <label for="nivel">Nivel:</label>
+                    <select class="form-control" id="nivel" name="nivel">
+                        <option selected value="ADMIN">ADMIN</option>
+                        <option
+                                @if($User->nivel == 'USER')
+                                selected
+                                @endif
+                                value="USER" >USER</option>
+                    </select>
+                </div>
+            @else
+                <input type="hidden" id="nivel" name="nivel" value="{{$User->nivel}}"/>
+            @endif
+
             <div class="form-group">
                 <input type="hidden" name="hasAlteracaoSenha" id="hasAlteracaoSenha" value="0"/>
                <button type="button" class="btn btn-primary" onclick="mudarSenha()">Mudar a senha</button>

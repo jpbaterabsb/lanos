@@ -93,7 +93,7 @@
             @endif
 
             @if(count($Clientes)>0)
-                <table class="table table-hover">
+                <table id="table" class="table table-hover" style="table-layout:fixed;">
                     <thead>
                     <tr>
                         <th>SL No</th>
@@ -111,7 +111,7 @@
                         <tr>
                             <td>{{$i}} </td>
                             <td> <a href="{{Request::root()}}/Cliente/view-Cliente/{{$Cliente->id}}" > {{$Cliente->nome }}</a> </td>
-                            <td>{{$Cliente->endereco}}</td>
+                            <td style="overflow: auto">{{\App\Helper\ObjectHelper::formatEndereco($Cliente->endereco)}}</td>
                             <td>{{$Cliente->telefone}}</td>
                             <td>{{$Cliente->email}}</td>
                             <td>{{$Cliente->cpf}}</td>
@@ -140,4 +140,7 @@
 @section('js')
     <script src="{{asset('js/jquery.mask.js')}}"></script>
     <script src="{{asset('js/util.js')}}"></script>
+    <script>
+        $('#table').DataTable();
+    </script>
 @endsection

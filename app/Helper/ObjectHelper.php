@@ -50,4 +50,10 @@ class ObjectHelper
     public  static  function porcentage($value, $totalValue){
         return number_format($value * 100 / $totalValue,2);
     }
+
+    public  static  function formatEndereco($endereco)
+    {
+        return $endereco != null ? $endereco->logradouro . ' ' . $endereco->complemento . ', ' . $endereco->bairro . ', ' . $endereco->localidade . ', '
+            . $endereco->uf . ', ' . $endereco->cep : '';
+    }
 }

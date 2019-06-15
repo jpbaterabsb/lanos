@@ -30,6 +30,7 @@ class UserController extends Controller {
         $User_data = array(
             'name' => Input::get('name'),
             'email' => Input::get('email'),
+            'nivel' => Input::get('nivel'),
             'password' => Hash::make(Input::get('password')),
         );
         $User_id = User::insert($User_data);
@@ -56,6 +57,7 @@ class UserController extends Controller {
         $User_data = array(
             'name' => Input::get('name'),
             'email' => Input::get('email'),
+            'nivel' => Input::get('nivel')
         );
 
         if ($hasAlteracaoSenha){

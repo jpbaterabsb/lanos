@@ -79,7 +79,7 @@
         <div class="box-body"></div>
         <div class="box-body">
             @if(count($Produtos)>0)
-                <table class="table table-hover">
+                <table id="table" class="table table-hover">
                     <thead>
                     <tr>
                         <th>SL No</th>
@@ -125,11 +125,12 @@
 @section('js')
 <script src="{{asset('js/select2.js')}}"></script>
 <script>
-$(document).ready(function () {
-    $('.select2').select2({
-        placeholder: "Selecione um cliente",
-        allowClear: true,
+    $('#table').DataTable();
+    $(document).ready(function () {
+        $('.select2').select2({
+            placeholder: "Selecione um cliente",
+            allowClear: true,
+        });
     });
-});
 </script>
 @endsection

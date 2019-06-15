@@ -21,6 +21,16 @@
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
+
+            @if(\App\Helper\ObjectHelper::currentUserIsAdmin())
+                <div class="form-group">
+                    <label for="nivel">Nivel:</label>
+                    <select class="form-control" id="nivel" name="nivel">
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="USER" selected="selected">USER</option>
+                    </select>
+                </div>
+            @endif
         </div>
         <div class="box-footer">
             <button type="submit" class="btn btn-primary">Submit</button>

@@ -28,10 +28,6 @@ class HomeController extends Controller
     public function index()
     {
         $data =array();
-       $data['faturamentoDiario'] = DB::select('SELECT os.id, sum(oshp.valor_venda) as valor FROM lanos.ordem_servicos os
-                                inner join lanos.ordem_servicos_has_produtos oshp on oshp.ordem_servicos_id = os.id
-                                where os.created_at > timestamp(current_date)
-                                group by os.id');
 
         $date = new \DateTime('now');
         $diaDeHoje = $date->format('d');
@@ -48,13 +44,13 @@ class HomeController extends Controller
         $periodoMensal = " where (os.created_at between  DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() )";
         $groupByIdOs = ' group by os.id';
 
-        $data['faturamentoDiaro'] = DB::select($valorTotalOf
-                                                    .$periodoDia
-                                                    .$groupByIdOs);
+        $data['faturamentoDiario'] = DB::select("SELECT sum(oshp.valor_venda) as valor FROM lanos.ordem_servicos os
+                                inner join lanos.ordem_servicos_has_produtos oshp on oshp.ordem_servicos_id = os.id
+                                where os.created_at > DATE_FORMAT(NOW() ,'%Y-%m-%d 00:00:00')");
 
-        $data['faturamentoMensal'] = DB::select($valorTotalOf
-                                                        .$periodoMensal
-                                                        . $groupByIdOs);
+        $data['faturamentoMensal'] = DB::select("SELECT sum(oshp.valor_venda) as valor FROM lanos.ordem_servicos os
+                                inner join lanos.ordem_servicos_has_produtos oshp on oshp.ordem_servicos_id = os.id
+                                where (os.created_at between  DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() )");
 
         $data['ordemDeServicoAberto'] = OrdemServico::query()->where('status','0')->count();
 

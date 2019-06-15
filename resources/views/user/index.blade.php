@@ -14,7 +14,7 @@
             @endif
 
             @if(count($Users)>0)
-                <table class="table table-hover">
+                <table id="table" class="table table-hover">
                     <thead>
                     <tr>
                         <th>SL No</th>
@@ -49,4 +49,10 @@
         <div class="box-footer"></div>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+        $('#table').DataTable();
+    </script>
 @endsection

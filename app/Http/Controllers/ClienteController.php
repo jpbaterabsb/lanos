@@ -11,9 +11,14 @@ namespace App\Http\Controllers;
 
 use App\Helper\ObjectHelper;
 use App\Models\Cliente as Cliente;
+use App\Models\Endereco;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Hash;
+use File;
+use Illuminate\Support\Facades\Storage;
+
 class ClienteController extends Controller {
 
     public function index()
@@ -23,6 +28,7 @@ class ClienteController extends Controller {
     }
     public function add()
     {
+
         return view('Cliente/add');
     }
     public function addPost(Request $request)
@@ -33,18 +39,39 @@ class ClienteController extends Controller {
             'cpf' => 'required|unique:clientes,cpf|min:14',
             'telefone' => 'min:14',
             'email' => 'required',
-            'endereco' => 'required',
+            'cep' => 'min:10'
         ]);
 
-        $Cliente_data = array(
-            'nome' => Input::get('nome'),
-            'cpf' => Input::get('cpf'),
-            'email' => Input::get('email'),
-            'telefone' => Input::get('telefone'),
-            'endereco' => Input::get('endereco'),
-            'status' => 1
-        );
-        Cliente::insert($Cliente_data);
+        $cliente = new Cliente;
+
+        $cliente->nome = $request->nome;
+        $cliente->cpf = $request->cpf;
+        $cliente->email = $request->email;
+        $cliente->telefone = $request->telefone;
+        $cliente->status = 1;
+        $endereco = new Endereco();
+        $endereco->cep = $request->cep;
+        $endereco->logradouro = $request->logradouro;
+        $endereco->complemento = $request->complemento;
+        $endereco->localidade = $request->localidade;
+        $endereco->uf = $request->uf;
+
+//        $Cliente_data = array(
+//            'nome' => Input::get('nome'),
+//            'cpf' => Input::get('cpf'),
+//            'email' => Input::get('email'),
+//            'status' => 1
+//        );
+
+
+
+
+        DB::transaction(function () use($cliente,$endereco){
+            $cliente->save();
+            $cliente->endereco()->save($endereco);
+        });
+
+
         return redirect('Cliente')->with('message', 'Cliente successfully added');
     }
     public function delete($id)
@@ -58,19 +85,34 @@ class ClienteController extends Controller {
         $data['Cliente']=Cliente::find($id);
         return view('Cliente/edit',$data);
     }
-    public function editPost()
+    public function editPost(Request $request)
     {
-        $id =Input::get('Cliente_id');
-        $Cliente=Cliente::find($id);
 
-        $Cliente_data = array(
-            'nome' => Input::get('nome'),
-            'cpf' => Input::get('cpf'),
-            'email' => Input::get('email'),
-            'telefone' => Input::get('telefone'),
-            'endereco' => Input::get('endereco'),
-        );
-        $Cliente_id = Cliente::where('id', '=', $id)->update($Cliente_data);
+        $request->validate([
+            'nome' => 'required',
+            'cpf' => 'required|min:14',
+            'telefone' => 'min:14',
+            'email' => 'required',
+            'cep' => 'min:10'
+        ]);
+
+        $id =Input::get('Cliente_id');
+        $cliente = Cliente::find($id);
+
+        $cliente->nome = $request->nome;
+        $cliente->cpf = $request->cpf;
+        $cliente->email = $request->email;
+        $cliente->telefone = $request->telefone;
+
+        $cliente->endereco->cep = $request->cep;
+        $cliente->endereco->logradouro = $request->logradouro;
+        $cliente->endereco->complemento = $request->complemento;
+        $cliente->endereco->localidade = $request->localidade;
+        $cliente->endereco->bairro = $request->bairro;
+        $cliente->endereco->uf = $request->uf;
+
+        $cliente->push();
+
         return redirect('Cliente')->with('message', 'Cliente Updated successfully');
     }
 

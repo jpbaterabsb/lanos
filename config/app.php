@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt-br',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,6 +185,10 @@ return [
          * GERAR PDFF
          */
         Barryvdh\DomPDF\ServiceProvider::class,
+
+        /*
+         * REST CLIENT
+         */
 
         /**
          * Gerar models apartir do database

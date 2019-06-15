@@ -72,8 +72,16 @@ class ProdutoController extends Controller {
         $data['Produto']=Produto::find($id);
         return view('Produto/edit',$data);
     }
-    public function editPost()
+    public function editPost(Request $request)
     {
+
+        $request->validate([
+            'valor' => 'required|min:1|max:15',
+            'quantidade' => 'required|min:1|max:5',
+            'categoria' => 'required',
+            'descricao' => 'required|min:3|max:100',
+        ]);
+
         $id =Input::get('Produto_id');
         $Produto=Produto::find($id);
 

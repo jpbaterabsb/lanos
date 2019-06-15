@@ -87,12 +87,9 @@
 @stop
 
 @section('js')
-    //https://nagix.github.io/chartjs-plugin-colorschemes/
     <script type="text/javascript" src="{{asset('js/chartjs-plugin-colorschemes.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/chartjs-plugin-labels.min.js')}}"></script>
     <script>
-
-
         $.ajax({
             url: '/dashboard/maisConsumidos', //this is your uri
             type: 'GET', //this is your method

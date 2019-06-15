@@ -1,6 +1,14 @@
 
 $(document).ready(function($){
     $("#telefone").mask("(00) 0000-0000");
+
+    $("#tipo").on('change',function () {
+        if ( $("#tipo").val() == 'CELULAR')
+            $("#telefone").mask("(00) 0 0000-0000");
+        else
+            $("#telefone").mask("(00) 0000-0000");
+    });
+
     $("#cep").mask("00.000-000");
     $('.date').mask('00/00/0000');
     $('.time').mask('00:00:00');
@@ -35,7 +43,20 @@ $(document).ready(function($){
         }
     });
     $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+
+
+
+
+
+
+
+
+    $('.select2UF').select2({
+        placeholder: "Selecione um UF"
+    });
+
 });
+
 
 function mascaraValor(valor) {
         valor = valor.toString().replace(/\D/g,"");

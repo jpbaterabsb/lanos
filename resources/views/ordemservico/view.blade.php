@@ -11,7 +11,7 @@
                 <li class="list-group-item">Cliente: {{$cliente->nome}}</li>
                 <li class="list-group-item">Telefone: {{$cliente->telefone}}</li>
                 <li class="list-group-item">Email: {{$cliente->email}}</li>
-                <li class="list-group-item">Endereço: {{$cliente->endereco}}</li>
+                <li class="list-group-item">Endereço: {{\App\Helper\ObjectHelper::formatEndereco($cliente->endereco)}}</li>
                 <li class="list-group-item">Emissor: {{$user->name}}</li>
                 <li class="list-group-item">Data de abertura: {{date('d/m/Y',strtotime($OrdemServico->created_at))}}</li>
             </ul>

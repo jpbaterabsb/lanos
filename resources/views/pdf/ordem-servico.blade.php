@@ -64,7 +64,7 @@
                     Endereço:
                 </td>
                 <td colspan="3">
-                    {{$cliente->endereco}}
+                    {{\App\Helper\ObjectHelper::formatEndereco($cliente->endereco)}}
                 </td>
             </tr>
             <tr>

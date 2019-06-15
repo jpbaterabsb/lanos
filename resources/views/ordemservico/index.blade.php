@@ -93,7 +93,7 @@
         <div class="box-body">
 
             @if(count($OrdemServicos)>0)
-                <table class="table table-bordered">
+                <table id="table" class="table table-bordered">
                     <thead>
                     <tr>
                         <th>SL No</th>
@@ -110,7 +110,7 @@
                             <td>{{$i}} </td>
                             <td> <a href="{{Request::root()}}/OrdemServico/view-OrdemServico/{{$OrdemServico->id}}" > {{$OrdemServico->id }}</a> </td>
                             <td>{{$OrdemServico->descricao}}</td>
-                            <td>{{$OrdemServico->created_at->format('d/m/Y')}}</td>
+                            <td>{{$OrdemServico->created_at->format('d/m/Y  H:i')}}</td>
 
                             <td>
                                 <a href="{{Request::root()}}/OrdemServico/change-status-OrdemServico/{{$OrdemServico->id }}" > @if($OrdemServico->status==0) {{"Fechar"}}  @else {{"Abrir"}} @endif </a>
@@ -150,6 +150,7 @@
     <script src="{{asset('js/jquery.mask.js')}}"></script>
 
     <script>
+        $('#table').DataTable();
         $(document).ready(function() {
             $('.js-example-basic-single').select2({
                 placeholder: "Selecione um cliente",

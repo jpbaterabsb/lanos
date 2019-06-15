@@ -23,7 +23,7 @@
             @endif
 
             @if(count($Categoriass)>0)
-                <table class="table table-active table-bordered">
+                <table id="table" class="table table-active table-bordered">
                     <thead>
                     <tr>
                         <th>SL No</th>
@@ -58,4 +58,11 @@
         </div>
         <div class="box-footer "></div>
     </div>
+@endsection
+
+@section('js')
+
+    <script>
+        $('#table').DataTable();
+    </script>
 @endsection

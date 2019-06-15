@@ -60,15 +60,15 @@ Route::group(array('prefix' => 'Produto'), function()
 
 Route::group(array('prefix' => 'User'), function()
 {
-    Route::get('/', 'UserController@index');
-    Route::get('/add-User', 'UserController@add');
-    Route::post('/add-User-post', 'UserController@addPost');
-    Route::get('/delete-User/{id}', 'UserController@delete');
-    Route::get('/edit-User/{id}', 'UserController@edit');
+    Route::get('/', 'UserController@index')->middleware('isadmin');
+    Route::get('/add-User', 'UserController@add')->middleware('isadmin');
+    Route::post('/add-User-post', 'UserController@addPost')->middleware('isadmin');
+    Route::get('/delete-User/{id}', 'UserController@delete')->middleware('isadmin');
+    Route::get('/edit-User/{id}', 'UserController@edit')->middleware('isadmin');
     Route::post('/edit-User-post', 'UserController@editPost');
     Route::get('/change-status-User/{id}', 'UserController@changeStatus');
-    Route::get('/view-User/{id}', 'UserController@view');
-    Route::get('/filter', 'UserController@filter');
+    Route::get('/view-User/{id}', 'UserController@view')->middleware('isadmin');
+    Route::get('/filter', 'UserController@filter')->middleware('isadmin');
 });
 
 Route::group(array('prefix' => 'OrdemServico'), function()

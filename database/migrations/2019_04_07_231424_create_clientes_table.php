@@ -19,7 +19,6 @@ class CreateClientesTable extends Migration
             $table->string('nome');
             $table->string('telefone');
             $table->string('email')->unique();
-            $table->string('endereco');
             $table->boolean('status');
             $table->timestamps();
         });

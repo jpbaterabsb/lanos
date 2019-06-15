@@ -7,6 +7,7 @@
 
 namespace App\Models;
 
+use App\Models\Endereco;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
@@ -41,4 +42,14 @@ class Cliente extends Eloquent
 	{
 		return $this->hasMany(\App\Models\OrdemServico::class);
 	}
+
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class);
+    }
+
+    public function telefones()
+    {
+        return $this->hasMany(\App\Models\Telefones::class);
+    }
 }
