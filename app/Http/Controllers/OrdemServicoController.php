@@ -202,6 +202,10 @@ class OrdemServicoController extends Controller
                 $data = date('Y-m-d',strtotime($time));
                 array_push($datas, $data);
             }
+
+            $datas[0].=" 00:00:00";
+            $datas[1].=" 23:59:59";
+
             $ordem_servico->whereBetween('created_at', $datas);
         }
 
