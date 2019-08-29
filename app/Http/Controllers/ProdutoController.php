@@ -16,7 +16,6 @@ use App\Models\Produto as Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
 use Hash;
 class ProdutoController extends Controller {
 

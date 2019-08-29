@@ -25,29 +25,29 @@ Route::group(array('prefix' => 'dashboard'), function()
 
 Route::group(array('prefix' => 'categorias'), function()
 {
-    Route::get('', 'categoriasController@index');
-    Route::get('/add', 'categoriasController@add');
-    Route::post('', 'categoriasController@addPost');
-    Route::get('/{id}/delete', 'categoriasController@delete');
-    Route::get('/{id}/edit', 'categoriasController@edit');
-    Route::post('/edit', 'categoriasController@editPost');
-    Route::get('/{id}/change-status', 'categoriasController@changeStatus');
-    Route::get('/{id}/view', 'categoriasController@view');
-    Route::get('/filter', 'categoriasController@filter');
+    Route::get('', 'CategoriasController@index');
+    Route::get('/add', 'CategoriasController@add');
+    Route::post('', 'CategoriasController@addPost');
+    Route::get('/{id}/delete', 'CategoriasController@delete');
+    Route::get('/{id}/edit', 'CategoriasController@edit');
+    Route::post('/edit', 'CategoriasController@editPost');
+    Route::get('/{id}/change-status', 'CategoriasController@changeStatus');
+    Route::get('/{id}/view', 'CategoriasController@view');
+    Route::get('/filter', 'CategoriasController@filter');
 });
 
 Route::group(array('prefix' => 'produto'), function()
 {
-    Route::get('', 'produtoController@index');
-    Route::get('/add', 'produtoController@add');
-    Route::post('', 'produtoController@addPost');
-    Route::get('/{id}/delete', 'produtoController@delete');
-    Route::get('/{id}/edit', 'produtoController@edit');
-    Route::post('/edit', 'produtoController@editPost');
-    Route::get('/{id}/change-status', 'produtoController@changeStatus');
-    Route::get('/{id}/view', 'produtoController@view');
-    Route::get('/nome','produtoController@pesquisarNomeproduto');
-    Route::get('/filter', 'produtoController@filter');
+    Route::get('', 'ProdutoController@index');
+    Route::get('/add', 'ProdutoController@add');
+    Route::post('', 'ProdutoController@addPost');
+    Route::get('/{id}/delete', 'ProdutoController@delete');
+    Route::get('/{id}/edit', 'ProdutoController@edit');
+    Route::post('/edit', 'ProdutoController@editPost');
+    Route::get('/{id}/change-status', 'ProdutoController@changeStatus');
+    Route::get('/{id}/view', 'ProdutoController@view');
+    Route::get('/nome','ProdutoController@pesquisarNomeproduto');
+    Route::get('/filter', 'ProdutoController@filter');
 });
 
 Route::group(array('prefix' => 'user'), function()
