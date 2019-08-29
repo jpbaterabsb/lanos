@@ -17,6 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dragonmantank/cron-expression" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/encore/laravel-admin" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/erusev/parsedown" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fideloper/proxy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/filp/whoops" />
@@ -28,6 +29,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-color" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-highlighter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jeroennoten/laravel-adminlte" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-admin-ext/log-viewer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/framework" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
@@ -79,6 +81,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/dom-crawler" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-foundation" />

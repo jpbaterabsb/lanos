@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    <form role="form" method="post" action="{{Request::root()}}/Cliente/edit-Cliente-post" >
+    <form role="form" method="post" action="cliente/edit" >
         <div class="box box-solid box-primary">
         <div class="box-header">
             <h2>Editar Cliente</h2>

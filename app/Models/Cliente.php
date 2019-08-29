@@ -11,7 +11,7 @@ use App\Models\Endereco;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class Cliente
+ * Class cliente
  * 
  * @property int $id
  * @property string $cpf

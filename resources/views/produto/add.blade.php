@@ -19,7 +19,7 @@
     <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
     <script src="{{asset('js/util.js')}}"></script>
     <link href="{{asset('css/jquery.autocomplete.css')}}" rel="stylesheet"/>
-    <form role="form" method="post" action="{{Request::root()}}/Produto/add-Produto-post" >
+    <form role="form" method="post" action="/produto" >
     <div class="box box-solid box-primary">
         <div class="box-header">
             <h2>Criar Produto</h2>

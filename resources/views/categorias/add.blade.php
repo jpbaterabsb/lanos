@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form role="form" method="post" action="{{Request::root()}}/Categorias/add-Categorias-post" >
+    <form role="form" method="post" action="/categorias" >
     <div class="box box-solid box-primary">
 
         <div class="box-header">

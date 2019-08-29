@@ -24,12 +24,12 @@ class ProdutoController extends Controller {
     {
         $data['Produtos'] = Produto::query()->where('status','1')->get();
         $data['categorias'] = Categoria::query()->where('status','1')->get();
-        return view('Produto/index',$data);
+        return view('produto/index',$data);
     }
     public function add()
     {
         $data['Categorias'] = Categoria::all();
-        return view('Produto/add',$data);
+        return view('produto/add',$data);
     }
     public function addPost(Request $request)
     {
@@ -49,7 +49,7 @@ class ProdutoController extends Controller {
             'status' => true
         );
         $Produto_id = Produto::insert($Produto_data);
-        return redirect('Produto')->with('message', 'Produto successfully added');
+        return redirect('produto')->with('message', 'Produto successfully added');
     }
 
     public function toNumber($valor)
@@ -65,12 +65,12 @@ class ProdutoController extends Controller {
     {
         $Produto=Produto::find($id);
         $Produto->delete();
-        return redirect('Produto')->with('message', 'Produto deleted successfully.');
+        return redirect('produto')->with('message', 'Produto deleted successfully.');
     }
     public function edit($id)
     {
         $data['Produto']=Produto::find($id);
-        return view('Produto/edit',$data);
+        return view('produto/edit',$data);
     }
     public function editPost(Request $request)
     {
@@ -92,7 +92,7 @@ class ProdutoController extends Controller {
             'descricao' => Input::get('descricao'),
         );
         $Produto_id = Produto::where('id', '=', $id)->update($Produto_data);
-        return redirect('Produto')->with('message', 'Produto Updated successfully');
+        return redirect('produto')->with('message', 'Produto Updated successfully');
     }
 
 
@@ -106,7 +106,7 @@ class ProdutoController extends Controller {
     public function view($id)
     {
         $data['Produto']=Produto::find($id);
-        return view('Produto/view',$data);
+        return view('produto/view',$data);
 
     }
 
@@ -141,6 +141,6 @@ class ProdutoController extends Controller {
         
         $data['Produtos'] = $produto->get();
         $data['categorias'] = Categoria::all();
-        return view('Produto/index',$data);
+        return view('produto/index',$data);
     }
 }

@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <form role="form" method="post" action="{{Request::root()}}/Cliente/add-Cliente-post" >
+    <form role="form" method="post" action="/cliente" >
     <div class="box box-solid box-primary">
 
         <div class="box-header">

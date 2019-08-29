@@ -19,11 +19,11 @@ class CategoriasController extends Controller {
     public function index()
     {
         $data['Categoriass'] = Categoria::query()->where('status','1')->get();
-        return view('Categorias/index',$data);
+        return view('categorias/index',$data);
     }
     public function add()
     {
-        return view('Categorias/add');
+        return view('categorias/add');
     }
     public function addPost(Request $request)
     {
@@ -36,18 +36,18 @@ class CategoriasController extends Controller {
             'status' => true
         );
         $Categorias_id = Categoria::insert($Categorias_data);
-        return redirect('Categorias')->with('message', 'Categorias successfully added');
+        return redirect('categorias')->with('message', 'Categorias successfully added');
     }
     public function delete($id)
     {
         $Categorias=Categoria::find($id);
         $Categorias->delete();
-        return redirect('Categorias')->with('message', 'Categorias deleted successfully.');
+        return redirect('categorias')->with('message', 'Categorias deleted successfully.');
     }
     public function edit($id)
     {
         $data['Categorias']=Categoria::find($id);
-        return view('Categorias/edit',$data);
+        return view('categorias/edit',$data);
     }
     public function editPost()
     {
@@ -58,7 +58,7 @@ class CategoriasController extends Controller {
             'nome' => Input::get('nome'),
         );
         $Categorias_id = Categoria::where('id', '=', $id)->update($Categorias_data);
-        return redirect('Categorias')->with('message', 'Categorias Updated successfully');
+        return redirect('categorias')->with('message', 'Categorias Updated successfully');
     }
 
 
@@ -67,12 +67,12 @@ class CategoriasController extends Controller {
         $Categorias=Categoria::find($id);
         $Categorias->status=!$Categorias->status;
         $Categorias->save();
-        return redirect('Categorias')->with('message', 'Change Categorias status successfully');
+        return redirect('categorias')->with('message', 'Change Categorias status successfully');
     }
     public function view($id)
     {
         $data['Categorias']=Categoria::find($id);
-        return view('Categorias/view',$data);
+        return view('categorias/view',$data);
 
     }
 }

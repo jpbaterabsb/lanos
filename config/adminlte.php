@@ -128,11 +128,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Criar Categorias',
-                    'url'  => '/Categorias/add-Categorias',
+                    'url'  => '/categorias/add',
                 ],
                 [
                     'text' => 'Lista',
-                    'url'  => '/Categorias',
+                    'url'  => '/categorias',
                 ],
             ],
             'icon' => 'folder-open',
@@ -142,11 +142,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Criar Produtos',
-                    'url'  => '/Produto/add-Produto',
+                    'url'  => '/produto/add',
                 ],
                 [
                     'text'=> 'Lista',
-                    'url'  => '/Produto'
+                    'url'  => '/produto'
                 ]
             ],
             'icon' => 'television',
@@ -156,11 +156,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Criar Clientes',
-                    'url'  => '/Cliente/add-Cliente',
+                    'url'  => '/cliente/add',
                 ],
                 [
                     'text'=> 'Lista',
-                    'url'  => '/Cliente'
+                    'url'  => '/cliente'
                 ]
             ],
             'icon' => 'users',
@@ -170,11 +170,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Criar Usuarios',
-                    'url'  => '/User/add-User',
+                    'url'  => '/user',
                 ],
                 [
                     'text'=> 'Lista',
-                    'url'  => '/User'
+                    'url'  => '/user'
                 ]
             ],
             'icon' => 'user',
@@ -185,11 +185,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Criar Ordem de Serviço',
-                    'url'  => '/OrdemServico/add-OrdemServico',
+                    'url'  => '/ordem-servico/add',
                 ],
                 [
                     'text'=> 'Lista',
-                    'url'  => '/OrdemServico'
+                    'url'  => '/ordem-servico'
                 ]
             ],
             'icon' => 'file-o',

@@ -9,7 +9,7 @@
     </div>
 
     <div class="box">
-        <form role="form" method="get" action="{{Request::root()}}/Cliente/filter" >
+        <form role="form" method="get" action="cliente/filter" >
             <div class="box-header with-border">
                 <h3>Filtro</h3>
             </div>
@@ -110,15 +110,15 @@
                     @foreach($Clientes as $Cliente)
                         <tr>
                             <td>{{$i}} </td>
-                            <td> <a href="{{Request::root()}}/Cliente/view-Cliente/{{$Cliente->id}}" > {{$Cliente->nome }}</a> </td>
+                            <td> <a href="/cliente/{{$Cliente->id}}/view" > {{$Cliente->nome }}</a> </td>
                             <td style="overflow: auto">{{\App\Helper\ObjectHelper::formatEndereco($Cliente->endereco)}}</td>
                             <td>{{$Cliente->telefone}}</td>
                             <td>{{$Cliente->email}}</td>
                             <td>{{$Cliente->cpf}}</td>
                             <td>
-                                <a href="{{Request::root()}}/Cliente/change-status-Cliente/{{$Cliente->id }}" > @if($Cliente->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>
-                                <a href="{{Request::root()}}/Cliente/edit-Cliente/{{$Cliente->id}}" >Editar</a>
-                                {{--<a href="{{Request::root()}}/Cliente/delete-Cliente/{{$Cliente->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
+                                <a href="/cliente/{{$Cliente->id }}/change-status" > @if($Cliente->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>
+                                <a href="/cliente/{{$Cliente->id}}/edit" >Editar</a>
+                                {{--<a href="{{Request::root()}}/cliente/delete-cliente/{{$cliente->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
                             </td>
 
                         </tr>

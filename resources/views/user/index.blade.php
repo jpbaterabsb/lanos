@@ -27,12 +27,12 @@
                     @foreach($Users as $User)
                         <tr>
                             <td>{{$i}} </td>
-                            <td> <a href="{{Request::root()}}/User/view-User/{{$User->id}}" > {{$User->name }}</a> </td>
+                            <td> <a href="/user/{{$User->id}}/view" > {{$User->name }}</a> </td>
 
                             <td>
                                 {{--                        <a href="{{Request::root()}}/User/change-status-User/{{$User->id }}" > @if($User->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>--}}
-                                <a href="{{Request::root()}}/User/edit-User/{{$User->id}}" >Editar</a>
-                                <a href="{{Request::root()}}/User/delete-User/{{$User->id}}" onclick="return confirm('are you sure to delete')">Delete</a>
+                                <a href="/user/{{$User->id}}/edit" >Editar</a>
+                                <a href="/user/{{$User->id}}/delete" onclick="return confirm('are you sure to delete')">Delete</a>
                             </td>
 
                         </tr>

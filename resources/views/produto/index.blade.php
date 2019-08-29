@@ -15,7 +15,7 @@
     </div>
 
     <div class="box">
-        <form role="form" method="get" action="{{Request::root()}}/Produto/filter" >
+        <form role="form" method="get" action="produto/filter" >
         <div class="box-body with-border">
             <h3>Filtro</h3>
         </div>
@@ -95,14 +95,14 @@
                     @foreach($Produtos as $Produto)
                         <tr>
                             <td>{{$i}} </td>
-                            <td> <a href="{{Request::root()}}/Produto/view-Produto/{{$Produto->id}}" > {{$Produto->descricao }}</a> </td>
+                            <td> <a href="produto/{{$Produto->id}}/view" > {{$Produto->descricao }}</a> </td>
                             <td>{{$Produto->quantidade}}</td>
                             <td>{{\App\Helper\ObjectHelper::toMoneyFormat($Produto->valor)}}</td>
                             <td>{{$Produto->Categoria->nome}}</td>
 
                             <td>
-                                <a href="{{Request::root()}}/Produto/change-status-Produto/{{$Produto->id }}" > @if($Produto->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>
-                                <a href="{{Request::root()}}/Produto/edit-Produto/{{$Produto->id}}" >Editar</a>
+                                <a href="/produto/{{$Produto->id }}/change-status" > @if($Produto->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>
+                                <a href="/produto/{{$Produto->id}}/edit" >Editar</a>
 {{--                                <a href="{{Request::root()}}/Produto/delete-Produto/{{$Produto->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
                             </td>
 

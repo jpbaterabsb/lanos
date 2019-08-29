@@ -130,7 +130,7 @@
 </table>
 
 {{--<ul class="">--}}
-{{--<li class="">Cliente: {{$cliente->nome}}</li>--}}
+{{--<li class="">cliente: {{$cliente->nome}}</li>--}}
 {{--<li class="">Telefone: {{$cliente->telefone}}</li>--}}
 {{--<li class="">Email: {{$cliente->email}}</li>--}}
 {{--<li class="">Endereço: {{$cliente->endereco}}</li>--}}

@@ -2,7 +2,7 @@
 @section('title', 'Lano\'s Informatica - Home')
 
 @section('content')
-    <form role="form" method="post" action="{{Request::root()}}/User/add-User-post" >
+    <form role="form" method="post" action="/user" >
     <div class="box box-solid box-primary">
         <div class="box-header">
             <h2>Add User</h2>

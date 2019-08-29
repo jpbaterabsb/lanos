@@ -14,7 +14,7 @@
     </div>
 
     <div class="box">
-        <form id="filtrar" role="form" method="get" action="{{Request::root()}}/OrdemServico/filter" >
+        <form id="filtrar" role="form" method="get" action="/ordem-servico/filter" >
             <div class="box-header with-border"><h3>Filtro</h3></div>
             <div class="box-body">
                 <div class="row">
@@ -108,18 +108,18 @@
                     @foreach($OrdemServicos as $OrdemServico)
                         <tr>
                             <td>{{$i}} </td>
-                            <td> <a href="{{Request::root()}}/OrdemServico/view-OrdemServico/{{$OrdemServico->id}}" > {{$OrdemServico->id }}</a> </td>
+                            <td> <a href="/ordem-servico/{{$OrdemServico->id}}/view" > {{$OrdemServico->id }}</a> </td>
                             <td>{{$OrdemServico->descricao}}</td>
                             <td>{{$OrdemServico->created_at->format('d/m/Y  H:i')}}</td>
 
                             <td>
-                                <a href="{{Request::root()}}/OrdemServico/change-status-OrdemServico/{{$OrdemServico->id }}" > @if($OrdemServico->status==0) {{"Fechar"}}  @else {{"Abrir"}} @endif </a>
-                                <a href="{{Request::root()}}/OrdemServico/edit-OrdemServico/{{$OrdemServico->id}}" >Editar</a>
+                                <a href="/ordem-servico/{{$OrdemServico->id }}/change-status" > @if($OrdemServico->status==0) {{"Fechar"}}  @else {{"Abrir"}} @endif </a>
+                                <a href="/ordem-servico/{{$OrdemServico->id}}/edit" >Editar</a>
                                 @if(\App\Helper\ObjectHelper::currentUserIsAdmin())
-                                <a href="{{Request::root()}}/OrdemServico/pdf/{{$OrdemServico->id}}" >Imprimir</a>
-                                <a href="{{Request::root()}}/OrdemServico/email/{{$OrdemServico->id}}" >Enviar para o e-mail</a>
+                                <a href="/ordem-servico/{{$OrdemServico->id}}/pdf" >Imprimir</a>
+                                <a href="/ordem-servico/{{$OrdemServico->id}}/email" >Enviar para o e-mail</a>
                                 @endif
-                                {{--<a href="{{Request::root()}}/OrdemServico/delete-OrdemServico/{{$OrdemServico->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
+                                {{--<a href="{{Request::root()}}/ordem-servico/delete-OrdemServico/{{$OrdemServico->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
                             </td>
 
                         </tr>

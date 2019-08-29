@@ -20,7 +20,7 @@
             <h2>Add OrdemServico</h2>
         </div>
         <div class="box-body">
-            <form id="cadastro" role="form" method="post" action="{{Request::root()}}/OrdemServico/add-OrdemServico-post" >
+            <form id="cadastro" role="form" method="post" action="/ordem-servico" >
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
@@ -110,7 +110,7 @@ function subimeter(){
 
         //autcomplete produto
 $('#produto').autocomplete({
-    serviceUrl: '../Produto/nome',
+    serviceUrl: '../produto/nome',
     onSelect: function (suggestion) {
         $('#produtoId').val(suggestion.id);
         $('#produtoObject').val(JSON.stringify(suggestion));

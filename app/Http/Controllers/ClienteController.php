@@ -17,19 +17,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Hash;
 use File;
-use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller {
 
     public function index()
     {
         $data['Clientes'] = Cliente::query()->where('status','1')->get();
-        return view('Cliente/index',$data);
+        return view('cliente/index',$data);
     }
     public function add()
     {
 
-        return view('Cliente/add');
+        return view('cliente/add');
     }
     public function addPost(Request $request)
     {
@@ -56,34 +55,24 @@ class ClienteController extends Controller {
         $endereco->localidade = $request->localidade;
         $endereco->uf = $request->uf;
 
-//        $Cliente_data = array(
-//            'nome' => Input::get('nome'),
-//            'cpf' => Input::get('cpf'),
-//            'email' => Input::get('email'),
-//            'status' => 1
-//        );
-
-
-
-
         DB::transaction(function () use($cliente,$endereco){
             $cliente->save();
             $cliente->endereco()->save($endereco);
         });
 
 
-        return redirect('Cliente')->with('message', 'Cliente successfully added');
+        return redirect('cliente')->with('message', 'cliente successfully added');
     }
     public function delete($id)
     {
         $Cliente=Cliente::find($id);
         $Cliente->delete();
-        return redirect('Cliente')->with('message', 'Cliente deleted successfully.');
+        return redirect('cliente')->with('message', 'cliente deleted successfully.');
     }
     public function edit($id)
     {
-        $data['Cliente']=Cliente::find($id);
-        return view('Cliente/edit',$data);
+        $data['cliente']=Cliente::find($id);
+        return view('cliente/edit',$data);
     }
     public function editPost(Request $request)
     {
@@ -113,7 +102,7 @@ class ClienteController extends Controller {
 
         $cliente->push();
 
-        return redirect('Cliente')->with('message', 'Cliente Updated successfully');
+        return redirect('cliente')->with('message', 'cliente Updated successfully');
     }
 
 
@@ -122,12 +111,12 @@ class ClienteController extends Controller {
         $Cliente=Cliente::find($id);
         $Cliente->status= !$Cliente->status;
         $Cliente->save();
-        return redirect('Cliente')->with('message', 'Change Cliente status successfully');
+        return redirect('cliente')->with('message', 'Change cliente status successfully');
     }
     public function view($id)
     {
-        $data['Cliente']=Cliente::find($id);
-        return view('Cliente/view',$data);
+        $data['cliente']=Cliente::find($id);
+        return view('cliente/view',$data);
 
     }
 
@@ -153,6 +142,6 @@ class ClienteController extends Controller {
         $cliente = ObjectHelper::getQueryStatus($cliente,$request->status);
 
         $data['Clientes'] = $cliente->get();
-        return view('Cliente/index',$data);
+        return view('cliente/index',$data);
     }
 }

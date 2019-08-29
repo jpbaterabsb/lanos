@@ -36,12 +36,12 @@
                     @foreach($Categoriass as $Categorias)
                         <tr>
                             <td>{{$i}} </td>
-                            <td> <a href="{{Request::root()}}/Categorias/view-Categorias/{{$Categorias->id}}" > {{$Categorias->nome }}</a> </td>
+                            <td> <a href="{{Request::root()}}/categorias/view/{{$Categorias->id}}" > {{$Categorias->nome }}</a> </td>
 
                             <td>
-                                <a href="{{Request::root()}}/Categorias/change-status-Categorias/{{$Categorias->id }}" > @if($Categorias->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>
-                                <a href="{{Request::root()}}/Categorias/edit-Categorias/{{$Categorias->id}}" >Editar</a>
-                                {{--<a href="{{Request::root()}}/Categorias/delete-Categorias/{{$Categorias->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
+                                <a href="{{Request::root()}}/categorias/{{$Categorias->id }}/change-status" > @if($Categorias->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>
+                                <a href="{{Request::root()}}/categorias/{{$Categorias->id}}/edit" >Editar</a>
+                                {{--<a href="{{Request::root()}}/categorias/delete-Categorias/{{$Categorias->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
                             </td>
 
                         </tr>

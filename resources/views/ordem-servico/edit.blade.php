@@ -16,7 +16,7 @@
     <div class="box">
         <div class="box-header"><h2>Update OrdemServico</h2></div>
         <div class="box-body">
-            <form id="editar" role="form" method="post" action="{{Request::root()}}/OrdemServico/edit-OrdemServico-post" enctype="multipart/form-data">
+            <form id="editar" role="form" method="post" action="/ordem-servico/edit" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" value="<?php echo $OrdemServico->id ?>"   name="OrdemServico_id">
                 <div class="form-group">

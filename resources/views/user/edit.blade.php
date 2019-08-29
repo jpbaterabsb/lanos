@@ -14,7 +14,7 @@
     @endif
 
 
-    <form role="form" method="post" action="{{Request::root()}}/User/edit-User-post" enctype="multipart/form-data">
+    <form role="form" method="post" action="/user/edit" enctype="multipart/form-data">
     <div class="box box-solid box-primary">
         <div class="box-header">
             @if(\Illuminate\Support\Facades\Request::path() == 'perfil')

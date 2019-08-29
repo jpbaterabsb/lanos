@@ -19,11 +19,11 @@ class UserController extends Controller {
     public function index()
     {
         $data['Users'] = User::all();
-        return view('User/index',$data);
+        return view('user/index',$data);
     }
     public function add()
     {
-        return view('User/add');
+        return view('user/add');
     }
     public function addPost()
     {
@@ -34,19 +34,19 @@ class UserController extends Controller {
             'password' => Hash::make(Input::get('password')),
         );
         $User_id = User::insert($User_data);
-        return redirect('User')->with('message', 'User successfully added');
+        return redirect('user')->with('message', 'User successfully added');
     }
     public function delete($id)
     {
         $User=User::find($id);
         $User->delete();
-        return redirect('User')->with('message', 'User deleted successfully.');
+        return redirect('user')->with('message', 'User deleted successfully.');
     }
     public function edit($id)
     {
         $data['User']=User::find($id);
         $data['habilitado'] = false;
-        return view('User/edit',$data);
+        return view('user/edit',$data);
     }
     public function editPost(Request $request)
     {
@@ -81,7 +81,7 @@ class UserController extends Controller {
         }
 
         $User_id = User::where('id', '=', $id)->update($User_data);
-        return redirect('User')->with('message', 'User Updated successfully');
+        return redirect('user')->with('message', 'User Updated successfully');
     }
 
 
@@ -90,12 +90,12 @@ class UserController extends Controller {
         $User=User::find($id);
         $User->status=!$User->status;
         $User->save();
-        return redirect('User')->with('message', 'Change User status successfully');
+        return redirect('user')->with('message', 'Change User status successfully');
     }
     public function view($id)
     {
         $data['User']=User::find($id);
-        return view('User/view',$data);
+        return view('user/view',$data);
 
     }
 

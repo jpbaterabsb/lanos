@@ -26,7 +26,7 @@ class CreateOrdemServicosHasProdutosTable extends Migration
             $table->foreign('produtos_id')->references('id')->on('produtos')->onDelete('cascade');
         });
 
-        DB::unprepared('ALTER TABLE `ordem_servicos_has_produtos` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id`)');
+        // DB::unprepared('ALTER TABLE `ordem_servicos_has_produtos` DROP PRIMARY KEY, ADD PRIMARY KEY (  `id`)');
 
 
     }

@@ -43,13 +43,13 @@ class OrdemServicoController extends Controller
         $data['OrdemServicos'] = OrdemServico::query()->where('status', '0')->orderBy('created_at','desc')->get();
         $data['clientes'] = Cliente::all();
 
-        return view('OrdemServico/index', $data);
+        return view('ordem-servico/index', $data);
     }
 
     public function add()
     {
         $data['clientes'] = Cliente::all();
-        return view('OrdemServico/add', $data);
+        return view('ordem-servico/add', $data);
     }
 
     public function addPost(Request $request)
@@ -81,14 +81,14 @@ class OrdemServicoController extends Controller
             OrdemServicosHasProduto::create($ordemServicosProduto);
         }
 
-        return redirect('OrdemServico')->with('message', 'OrdemServico successfully added');
+        return redirect('ordem-servico')->with('message', 'OrdemServico successfully added');
     }
 
     public function delete($id)
     {
         $OrdemServico = OrdemServico::find($id);
         $OrdemServico->delete();
-        return redirect('OrdemServico')->with('message', 'OrdemServico deleted successfully.');
+        return redirect('ordem-servico')->with('message', 'OrdemServico deleted successfully.');
     }
 
     public function edit($id)
@@ -111,7 +111,7 @@ class OrdemServicoController extends Controller
                         INNER JOIN
                     produtos p on p.id = op.produtos_id where o.id = ?;
         ', [$id]));
-        return view('OrdemServico/edit', $data);
+        return view('ordem-servico/edit', $data);
     }
 
     public function editPost(Request $request)
@@ -161,7 +161,7 @@ class OrdemServicoController extends Controller
             'updated_at' => Carbon::now()
         );
         $OrdemServico_id = OrdemServico::where('id', '=', $request->OrdemServico_id)->update($OrdemServico_data);
-        return redirect('OrdemServico')->with('message', 'OrdemServico Updated successfully');
+        return redirect('ordem-servico')->with('message', 'OrdemServico Updated successfully');
     }
 
     public function changeStatus($id)
@@ -169,7 +169,7 @@ class OrdemServicoController extends Controller
         $OrdemServico = OrdemServico::find($id);
         $OrdemServico->status = !$OrdemServico->status;
         $OrdemServico->save();
-        return redirect('OrdemServico')->with('message', 'Change OrdemServico status successfully');
+        return redirect('ordem-servico')->with('message', 'Change OrdemServico status successfully');
     }
 
     public function view($id)
@@ -179,7 +179,7 @@ class OrdemServicoController extends Controller
         $data['produtos'] = $os->produtos;
         $data['cliente'] = $os->cliente;
         $data['user'] = $os->user;
-        return view('OrdemServico/view', $data);
+        return view('ordem-servico/view', $data);
 
     }
 
@@ -214,7 +214,7 @@ class OrdemServicoController extends Controller
 
         $bag['OrdemServicos'] = $ordem_servico->orderBy('created_at','desc')->get();
         $bag['clientes'] = Cliente::all();
-        return view('OrdemServico/index', $bag);
+        return view('ordem-servico/index', $bag);
     }
 
     public function pdf($id)
@@ -230,7 +230,7 @@ class OrdemServicoController extends Controller
         $data = $this->getOrdemSerivcoDataToCreatePDF($id);
         Mail::to($data['cliente']->email)
             ->send(new OrdemServicoMail($data));
-        return redirect('/OrdemServico');
+        return redirect('/ordem-servico');
     }
 
     public function getOrdemSerivcoDataToCreatePDF($id)

@@ -4,7 +4,7 @@
 @section('content')
 
 <h2>Update Categorias</h2>
-<form role="form" method="post" action="{{Request::root()}}/Categorias/edit-Categorias-post" enctype="multipart/form-data">
+<form role="form" method="post" action="/categorias/edit    " enctype="multipart/form-data">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" value="<?php echo $Categorias->id ?>"   name="Categorias_id">
 

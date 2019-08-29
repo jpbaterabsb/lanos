@@ -9,7 +9,7 @@
             <h2>Update Produto</h2>
         </div>
         <div class="box-body">
-            <form role="form" method="post" action="{{Request::root()}}/Produto/edit-Produto-post" enctype="multipart/form-data">
+            <form role="form" method="post" action="/produto/edit" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" value="<?php echo $Produto->id ?>"   name="Produto_id">
                 <div class="form-group">
