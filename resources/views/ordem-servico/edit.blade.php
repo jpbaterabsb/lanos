@@ -61,7 +61,8 @@
                 </table>
                 <div class="form-group">
                     <label for="descricao">Descricao:</label>
-                    <textarea rows="3" value="<?php echo $OrdemServico->descricao ?>" placeholder="opcional" class="form-control" id="descricao" name="descricao"></textarea>
+                    <textarea rows="3" placeholder="opcional" class="form-control" id="descricao" name="descricao">{{ $OrdemServico->descricao }}
+                    </textarea>
                 </div>
                 <button type="button" id="salvar" class="btn btn-primary" onclick="subimeter()">Salvar</button>
             </form>

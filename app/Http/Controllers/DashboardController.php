@@ -13,7 +13,7 @@ class DashboardController extends Controller
                             p.descricao AS descricao,
                             COUNT(osh.produtos_id) AS quantidade
                         FROM
-                            lanos.ordem_servicos_has_produtos osh
+                            ordem_servicos_has_produtos osh
                                 INNER JOIN
                             produtos p ON osh.produtos_id = p.id
                         GROUP BY p.id');
