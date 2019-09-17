@@ -53,6 +53,7 @@ class ClienteController extends Controller {
         $endereco->logradouro = $request->logradouro;
         $endereco->complemento = $request->complemento;
         $endereco->localidade = $request->localidade;
+        $endereco->bairro = $request->bairro;
         $endereco->uf = $request->uf;
 
         DB::transaction(function () use($cliente,$endereco){

@@ -20,32 +20,32 @@
         <div class="box-body">
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" value="<?php echo $Cliente->id ?>"   name="Cliente_id">
+                <input type="hidden" value="<?php echo $cliente->id ?>"   name="Cliente_id">
 
                 <div class="form-group">
                     <label for="nome">Nome:</label>
-                    <input type="text" value="<?php echo $Cliente->nome ?>" class="form-control" id="nome" name="nome">
+                    <input type="text" value="<?php echo $cliente->nome ?>" class="form-control" id="nome" name="nome">
                 </div>
 
                 <div class="form-group">
                     <label for="cpf">CPF:</label>
-                    <input type="text" value="<?php echo $Cliente->cpf ?>" class="form-control" id="cpf" name="cpf">
+                    <input type="text" value="<?php echo $cliente->cpf ?>" class="form-control" id="cpf" name="cpf">
                 </div>
 
                 <div class="form-group">
                     <label for="telefone">Telefone:</label>
-                    <input type="text" value="<?php echo $Cliente->telefone ?>" class="form-control" id="telefone" name="telefone">
+                    <input type="text" value="<?php echo $cliente->telefone ?>" class="form-control" id="telefone" name="telefone">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" value="<?php echo $Cliente->email ?>" class="form-control" id="email" name="email">
+                    <input type="email" value="<?php echo $cliente->email ?>" class="form-control" id="email" name="email">
                 </div>
             <div class="row">
                 <div class="col-md-4 nopadding">
                     <div class="col-md-8">
                         <div class="form-group" style="margin-left: 0px">
                             <label for="cep">CEP:</label>
-                            <input type="text" value="{{$Cliente->endereco->cep}}" class="form-control" id="cep" name="cep">
+                            <input type="text" value="{{$cliente->endereco->cep}}" class="form-control" id="cep" name="cep">
                         </div>
                     </div>
                     <div class="col-md-4 ">
@@ -59,13 +59,13 @@
                             <label for="cep">UF:</label>
                             <select type="text" class="form-control select2UF"  id="uf" name="uf">
                             </select>
-                            <input type="hidden" id="selected" value="{{$Cliente->endereco->uf}}">
+                            <input type="hidden" id="selected" value="{{$cliente->endereco->uf}}">
                         </div>
                     </div>
                     <div class="col-md-10">
                         <div class="form-group">
                             <label for="cep">Localidade:</label>
-                            <input type="text" value="{{$Cliente->endereco->localidade}}" class="form-control" id="localidade" name="localidade">
+                            <input type="text" value="{{$cliente->endereco->localidade}}" class="form-control" id="localidade" name="localidade">
                         </div>
                     </div>
                 </div>
@@ -75,13 +75,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="cep">Bairro:</label>
-                        <input type="text" value="{{$Cliente->endereco->bairro}}" class="form-control" id="bairro" name="bairro">
+                        <input type="text" value="{{$cliente->endereco->bairro}}" class="form-control" id="bairro" name="bairro">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="cep">Logradouro:</label>
-                        <input type="text" value="{{$Cliente->endereco->logradouro}}" class="form-control" id="logradouro" name="logradouro">
+                        <input type="text" value="{{$cliente->endereco->logradouro}}" class="form-control" id="logradouro" name="logradouro">
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
 
             <div class="form-group">
                 <label for="cep">Complemento:</label>
-                <input type="text" class="form-control" value="{{$Cliente->endereco->complemento}}" id="complemento" name="complemento">
+                <input type="text" class="form-control" value="{{$cliente->endereco->complemento}}" id="complemento" name="complemento">
             </div>
 
 

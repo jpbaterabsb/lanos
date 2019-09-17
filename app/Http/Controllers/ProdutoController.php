@@ -69,6 +69,7 @@ class ProdutoController extends Controller {
     public function edit($id)
     {
         $data['Produto']=Produto::find($id);
+        $data['Categorias'] = Categoria::all();
         return view('produto/edit',$data);
     }
     public function editPost(Request $request)

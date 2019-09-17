@@ -8,8 +8,9 @@
         <div class="box-header">
             <h2>Update Produto</h2>
         </div>
+        <form role="form" method="post" action="/produto/edit" enctype="multipart/form-data">
         <div class="box-body">
-            <form role="form" method="post" action="/produto/edit" enctype="multipart/form-data">
+
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" value="<?php echo $Produto->id ?>"   name="Produto_id">
                 <div class="form-group">
@@ -26,16 +27,19 @@
                     <input type="number" value="<?php echo $Produto->valor ?>" class="form-control" id="valor" name="valor">
                 </div>
                 <div class="form-group">
-                    <label for="Categoria">Categoria:</label>
-                    <select class="form-control" id="Categoria" name="Categoria">
-                        <option value="" <?php if($Produto->Categoria->nome == ""){ echo "selected"; } ?> ></option>
+                    <label for="categoria">Categoria:</label>
+                    <select class="form-control" id="categoria" name="categoria">
+                        @foreach($Categorias as $categoria)
+                            <option @if($categoria->id == $Produto->categoria_id) selected="selected" @endif value="{{$categoria->id}}">{{$categoria->nome}}</option>
+                        @endforeach
                     </select>
                 </div>
-            </form>
         </div>
         <div class="box-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+        </form>
+
     </div>
 
 

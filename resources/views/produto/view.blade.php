@@ -2,27 +2,12 @@
 @section('title', 'Lano\'s Informatica - Home')
 
 @section('content')
-<div class="container">
 
-    <div class="row">
-        <div class="col-xs-12 col-md-10 well">
-            descricao  :  <?php echo $Produto->descricao ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-10 well">
-            quantidade  :  <?php echo $Produto->quantidade ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-10 well">
-            valor  :  <?php echo $Produto->valor ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-10 well">
-            Categoria  :  <?php echo $Produto->Categoria->nome ?>
-        </div>
-    </div>
-</div>
+<ul class="list-group">
+    <li class="list-group-item active">{{$Produto->descricao}}</li>
+    <li class="list-group-item">Quantidade: {{$Produto->quantidade}}</li>
+    <li class="list-group-item">Valor: {{$Produto->valor}}</li>
+    <li class="list-group-item">Categoria: {{$Produto->Categoria->nome}}</li>
+</ul>
+
 @endsection

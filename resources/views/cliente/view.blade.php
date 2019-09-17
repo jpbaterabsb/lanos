@@ -3,9 +3,9 @@
 
 @section('content')
         <ul class="list-group">
-            <li class="list-group-item active">{{$Cliente->nome}}</li>
-            <li class="list-group-item">Telefone: {{$Cliente->telefone}}</li>
-            <li class="list-group-item">Email: {{$Cliente->email}}</li>
-            <li class="list-group-item">Endereço: {{\App\Helper\ObjectHelper::formatEndereco($Cliente->endereco)}}</li>
+            <li class="list-group-item active">{{$cliente->nome}}</li>
+            <li class="list-group-item">Telefone: {{$cliente->telefone}}</li>
+            <li class="list-group-item">Email: {{$cliente->email}}</li>
+            <li class="list-group-item">Endereço: {{\App\Helper\ObjectHelper::formatEndereco($cliente->endereco)}}</li>
         </ul>
 @endsection
