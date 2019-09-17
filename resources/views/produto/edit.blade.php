@@ -3,6 +3,11 @@
 
 @section('content')
 
+    <script src="{{asset('js/jquery.js')}}"></script>
+    <script src="{{asset('js/jquery.mask.js')}}"></script>
+    <script src="{{asset('js/jquery.autocomplete.js')}}"></script>
+    <script src="{{asset('js/util.js')}}"></script>
+    <link href="{{asset('css/jquery.autocomplete.css')}}" rel="stylesheet"/>
 
     <div class="box">
         <div class="box-header">
