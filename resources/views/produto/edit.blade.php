@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="valor">Valor:</label>
-                    <input type="number" value="<?php echo $Produto->valor ?>" class="form-control" id="valor" name="valor">
+                    <input type="text" value="{{$Produto->valor}}" class="form-control money" id="valor" name="valor">
                 </div>
                 <div class="form-group">
                     <label for="categoria">Categoria:</label>
