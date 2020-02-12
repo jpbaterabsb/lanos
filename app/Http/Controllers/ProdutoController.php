@@ -83,15 +83,14 @@ class ProdutoController extends Controller {
         ]);
 
         $id =Input::get('Produto_id');
-        $Produto=Produto::find($id);
 
         $Produto_data = array(
             'quantidade' => Input::get('quantidade'),
-            'valor' => Input::get('valor'),
-            'Categoria' => Input::get('Categoria'),
+            'valor' => str_replace(",",".",Input::get('valor')),
+            'categoria_id' => Input::get('categoria'),
             'descricao' => Input::get('descricao'),
         );
-        $Produto_id = Produto::where('id', '=', $id)->update($Produto_data);
+        Produto::where('id', '=', $id)->update($Produto_data);
         return redirect('produto')->with('message', 'Produto Updated successfully');
     }
 

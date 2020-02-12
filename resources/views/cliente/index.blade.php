@@ -1,6 +1,10 @@
 @extends('adminlte::page')
 @section('title', 'Lano\'s Informatica - Home')
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('css/teste.css')}}">
+@endsection
+
 @section('content')
     <div class="box box-solid box-primary">
         <div class="box-header with-border">
@@ -93,7 +97,7 @@
             @endif
 
             @if(count($Clientes)>0)
-                <table id="table" class="table table-hover" style="table-layout:fixed;">
+                <table id="table" class="display responsive nowrap" style="width: 100%">
                     <thead>
                     <tr>
                         <th>SL No</th>
@@ -110,12 +114,12 @@
                     @foreach($Clientes as $Cliente)
                         <tr>
                             <td>{{$i}} </td>
-                            <td> <a href="/cliente/{{$Cliente->id}}/view" > {{$Cliente->nome }}</a> </td>
+                            <td > <a href="/cliente/{{$Cliente->id}}/view" > {{$Cliente->nome }}</a> </td>
                             <td style="overflow: auto">{{\App\Helper\ObjectHelper::formatEndereco($Cliente->endereco)}}</td>
-                            <td>{{$Cliente->telefone}}</td>
-                            <td>{{$Cliente->email}}</td>
-                            <td>{{$Cliente->cpf}}</td>
-                            <td>
+                            <td >{{$Cliente->telefone}}</td>
+                            <td style="overflow: auto">{{$Cliente->email}}</td>
+                            <td style="overflow: auto">{{$Cliente->cpf}}</td>
+                            <td class="all">
                                 <a href="/cliente/{{$Cliente->id }}/change-status" > @if($Cliente->status==0) {{"Ativar"}}  @else {{"Desativar"}} @endif </a>
                                 <a href="/cliente/{{$Cliente->id}}/edit" >Editar</a>
                                 {{--<a href="{{Request::root()}}/cliente/delete-cliente/{{$cliente->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
@@ -138,9 +142,17 @@
 @endsection
 
 @section('js')
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
     <script src="{{asset('js/jquery.mask.js')}}"></script>
     <script src="{{asset('js/util.js')}}"></script>
     <script>
-        $('#table').DataTable();
+        $('#table').DataTable({
+            "responsive":true,
+            "columnDefs": [
+                { responsivePriority: 1, targets: 1 },
+                { responsivePriority: 6, targets: 6 }
+            ]
+        });
     </script>
 @endsection
