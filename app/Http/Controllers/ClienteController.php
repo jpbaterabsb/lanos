@@ -77,7 +77,6 @@ class ClienteController extends Controller {
     }
     public function editPost(Request $request)
     {
-
         $request->validate([
             'nome' => 'required',
             'cpf' => 'required|min:14',
@@ -103,7 +102,7 @@ class ClienteController extends Controller {
 
         $cliente->push();
 
-        return redirect('cliente')->with('message', 'cliente Updated successfully');
+        return redirect('cliente')->with('message', 'cliente successfully added');
     }
 
 

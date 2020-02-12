@@ -93,7 +93,7 @@
         <div class="box-body">
 
             @if(count($OrdemServicos)>0)
-                <table id="table" class="table table-bordered">
+                <table id="table" class="display responsive nowrap" style="width: 100%">
                     <thead>
                     <tr>
                         <th>SL No</th>
@@ -139,10 +139,12 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('css/daterangepicker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/teste.css')}}">
 @endsection
 
 @section('js')
 
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="{{asset('js/select2.js')}}"></script>
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/daterangepicker.js')}}"></script>
@@ -150,7 +152,13 @@
     <script src="{{asset('js/jquery.mask.js')}}"></script>
 
     <script>
-        $('#table').DataTable();
+        $('#table').DataTable({
+            "responsive":true,
+            "columnDefs": [
+                { responsivePriority: 1, targets: 1 },
+                { responsivePriority: 2, targets: 2 }
+            ]
+        });
         $(document).ready(function() {
             $('.js-example-basic-single').select2({
                 placeholder: "Selecione um cliente",

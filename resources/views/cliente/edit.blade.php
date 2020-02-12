@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    <form role="form" method="post" action="cliente/edit" >
+    <form role="form" method="post" action="{{ action('ClienteController@editPost')  }}" >
         <div class="box box-solid box-primary">
         <div class="box-header">
             <h2>Editar Cliente</h2>
