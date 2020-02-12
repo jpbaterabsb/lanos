@@ -6,18 +6,17 @@
         "framework",
         "laravel"
     ],
-
     "license": "MIT",
     "require": {
         "php": "7.3.14",
-        "barryvdh/laravel-dompdf": "0.8.4",
-        "fideloper/proxy": "4.0",
-        "guzzlehttp/guzzle": "6.3",
-        "jeroennoten/laravel-adminlte": "1.25",
-        "laravel-admin-ext/log-viewer": "1.0",
+        "barryvdh/laravel-dompdf": "^0.8.4",
+        "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "jeroennoten/laravel-adminlte": "^1.25",
+        "laravel-admin-ext/log-viewer": "^1.0",
         "laravel/framework": "5.8.*",
-        "laravel/tinker": "1.0",
-        "reliese/laravel": "0.0.13"
+        "laravel/tinker": "^1.0",
+        "reliese/laravel": "^0.0.13"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
