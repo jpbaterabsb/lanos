@@ -92,34 +92,39 @@
         <div class="box-header with-border"></div>
         <div class="box-body">
 
-            @if(count($OrdemServicos)>0)
+            @if(count($ordemServicos)>0)
                 <table id="table" class="display responsive nowrap" style="width: 100%">
                     <thead>
                     <tr>
                         <th>SL No</th>
                         <th>Numero OS</th>
-                        <th>descricao</th>
+                        <th>Cliente</th>
+                        <th>Telefone cliente</th>
+                        <th>Status</th>
                         <th>Data de Emissão</th>
+                        <th>Emissor</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php $i=1 ?>
-                    @foreach($OrdemServicos as $OrdemServico)
+                    @foreach($ordemServicos as $ordemServico)
                         <tr>
                             <td>{{$i}} </td>
-                            <td> <a href="/ordem-servico/{{$OrdemServico->id}}/view" > {{$OrdemServico->id }}</a> </td>
-                            <td>{{$OrdemServico->descricao}}</td>
-                            <td>{{$OrdemServico->created_at->format('d/m/Y  H:i')}}</td>
-
+                            <td> <a href="/ordem-servico/{{$ordemServico->id}}/view" > {{$ordemServico->id }}</a> </td>
+                            <td>{{$ordemServico->cliente->nome}}</td>
+                            <td>{{$ordemServico->cliente->telefone}}</td>
+                            <td>{{$ordemServico->status ? 'Fechada' : 'Aberta' }}</td>
+                            <td>{{$ordemServico->created_at->format('d/m/Y  H:i')}}</td>
+                            <td>{{$ordemServico->user->name}}</td>
                             <td>
-                                <a href="/ordem-servico/{{$OrdemServico->id }}/change-status" > @if($OrdemServico->status==0) {{"Fechar"}}  @else {{"Abrir"}} @endif </a>
-                                <a href="/ordem-servico/{{$OrdemServico->id}}/edit" >Editar</a>
+                                <a href="/ordem-servico/{{$ordemServico->id }}/change-status" > @if($ordemServico->status==0) {{"Fechar"}}  @else {{"Abrir"}} @endif </a>
+                                <a href="/ordem-servico/{{$ordemServico->id}}/edit" >Editar</a>
                                 @if(\App\Helper\ObjectHelper::currentUserIsAdmin())
-                                <a href="/ordem-servico/{{$OrdemServico->id}}/pdf" >Imprimir</a>
-                                <a href="/ordem-servico/{{$OrdemServico->id}}/email" >Enviar para o e-mail</a>
+                                <a href="/ordem-servico/{{$ordemServico->id}}/pdf" >Imprimir</a>
+                                <a href="/ordem-servico/{{$ordemServico->id}}/email" >Enviar para o e-mail</a>
                                 @endif
-                                {{--<a href="{{Request::root()}}/ordem-servico/delete-OrdemServico/{{$OrdemServico->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
+                                {{--<a href="{{Request::root()}}/ordem-servico/delete-OrdemServico/{{$ordemServico->id}}" onclick="return confirm('are you sure to delete')">Delete</a>--}}
                             </td>
 
                         </tr>

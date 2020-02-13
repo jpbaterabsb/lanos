@@ -47,6 +47,10 @@ class ObjectHelper
       return $user->first()->isAdmin();
     }
 
+    public static function isOwner($id){
+        return $id === Auth::user()->getAuthIdentifier();
+    }
+
     public  static  function porcentage($value, $totalValue){
         return number_format($value * 100 / $totalValue,2);
     }

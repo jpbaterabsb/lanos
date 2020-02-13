@@ -170,7 +170,8 @@ return [
             'submenu' => [
                 [
                     'text' => 'Criar Usuarios',
-                    'url'  => '/user',
+                    'url'  => '/user/add',
+
                 ],
                 [
                     'text'=> 'Lista',

@@ -40,9 +40,15 @@ class OrdemServicoController extends Controller
 
     public function index()
     {
-        $data['OrdemServicos'] = OrdemServico::query()->where('status', '0')->orderBy('created_at','desc')->get();
-        $data['clientes'] = Cliente::all();
+        $data = Array();
+        $data['ordemServicos'] = OrdemServico::query()->where('status', '0')
+            ->with('cliente')
+            ->with('user')
+            ->orderBy('created_at','desc')->get();
 
+        $this->addAditionalData($data);
+
+        $data['clientes'] = Cliente::all();
         return view('ordem-servico/index', $data);
     }
 
@@ -99,7 +105,7 @@ class OrdemServicoController extends Controller
         $data['OrdemServico']['cliente'] = $ordemServico->cliente;
         $data['clientes'] = Cliente::all();
         $data['listaProduto'] = json_encode(DB::select('
-                SELECT 
+                SELECT
                     op.id as opid,
                     p.id as pid,
                     p.descricao,
@@ -212,7 +218,8 @@ class OrdemServicoController extends Controller
         ObjectHelper::getQueryStatus($ordem_servico, $request->status);
         $bag = array();
 
-        $bag['OrdemServicos'] = $ordem_servico->orderBy('created_at','desc')->get();
+        $bag['ordemServicos'] = $ordem_servico->orderBy('created_at','desc')->get();
+        $this->addAditionalData($bag);
         $bag['clientes'] = Cliente::all();
         return view('ordem-servico/index', $bag);
     }
@@ -242,5 +249,16 @@ class OrdemServicoController extends Controller
         $data['user'] = $ordemServico->user;
 
         return $data;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function addAditionalData(array $data): void
+    {
+        foreach ($data['ordemServicos'] as $os) {
+            $os['cliente'] = Cliente::find($os->cliente_id);
+            $os['user'] = User::find($os->user_id);
+        }
     }
 }

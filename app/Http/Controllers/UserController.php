@@ -9,103 +9,133 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\ObjectHelper;
 use App\User as User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
-class UserController extends Controller {
+
+class UserController extends Controller
+{
 
     public function index()
     {
         $data['Users'] = User::all();
-        return view('user/index',$data);
+        return view('user/index', $data);
     }
+
     public function add()
     {
         return view('user/add');
     }
-    public function addPost()
+
+    public function addPost(Request $request)
     {
-        $User_data = array(
-            'name' => Input::get('name'),
-            'email' => Input::get('email'),
-            'nivel' => Input::get('nivel'),
-            'password' => Hash::make(Input::get('password')),
-        );
-        $User_id = User::insert($User_data);
+
+        $request->validate([
+            'name' => 'required|min:5|max:50',
+            'email' => 'required|min:5|max:50|unique:users,email',
+            'nivel' => 'required',
+            'password' => 'required',
+            'confirmationPassword' => 'required',
+        ]);
+
+        if ($request->password !== $request->confirmationPassword) {
+            return back()->withErrors('Senhas diferentes')->withInput();
+        }
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nivel = $request->nivel;
+        $user->password = $request->password;
+        $user->save();
+
         return redirect('user')->with('message', 'User successfully added');
     }
+
     public function delete($id)
     {
-        $User=User::find($id);
+        $User = User::find($id);
         $User->delete();
         return redirect('user')->with('message', 'User deleted successfully.');
     }
+
     public function edit($id)
     {
-        $data['User']=User::find($id);
+        $data['User'] = User::find($id);
         $data['habilitado'] = false;
-        return view('user/edit',$data);
+        return view('user/edit', $data);
     }
+
     public function editPost(Request $request)
     {
-        $id =Input::get('User_id');
-        $hasAlteracaoSenha = (bool) Input::get('hasAlteracaoSenha');
-        $User=User::find($id);
+        $id = $request->User_id;
 
-        $User_data = array(
-            'name' => Input::get('name'),
-            'email' => Input::get('email'),
-            'nivel' => Input::get('nivel')
-        );
+        if (ObjectHelper::isOwner($id)) {
+            $hasAlteracaoSenha = (bool)Input::get('hasAlteracaoSenha');
+            $User = User::find($id);
 
-        if ($hasAlteracaoSenha){
+            $User_data = array(
+                'name' => Input::get('name'),
+                'email' => Input::get('email'),
+                'nivel' => Input::get('nivel')
+            );
+
+            if ($hasAlteracaoSenha) {
+
+                $request->validate([
+                    'old-password' => 'required',
+                    'new-password' => 'required',
+                    'confirm-password' => 'required'
+                ]);
+
+                $oldPassword = Input::get('old-password');
+                $newPassword = Input::get('new-password');
+                $confirmPassword = Input::get('confirm-password');
+
+                if (Hash::check($oldPassword, $User->password) && $newPassword == $confirmPassword) {
+                    $User_data['password'] = Hash::make($newPassword);
+                } else {
+                    return back()->withErrors('Senha nao corresponde com a senha antiga.');
+                }
+
+            }
+            User::where('id', '=', $id)->update($User_data);
+        } else {
 
             $request->validate([
-                'old-password' => 'required',
-                'new-password' => 'required',
-                'confirm-password' => 'required'
+                'nivel' => 'required|in:USER,ADMIN'
             ]);
-
-            $oldPassword = Input::get('old-password');
-            $newPassword = Input::get('new-password');
-            $confirmPassword = Input::get('confirm-password');
-
-            if (Hash::check($oldPassword,$User->password) && $newPassword == $confirmPassword){
-                $User_data['password'] = Hash::make($newPassword);
-            }else{
-                return back()->withErrors('Senha nao corresponde com a senha antiga.');
-            }
-
+            $user = User::find($id);
+            $user->nivel = $request->nivel;
+            $user->save();
         }
-
-        $User_id = User::where('id', '=', $id)->update($User_data);
         return redirect('user')->with('message', 'User Updated successfully');
     }
 
 
     public function changeStatus($id)
     {
-        $User=User::find($id);
-        $User->status=!$User->status;
+        $User = User::find($id);
+        $User->status = !$User->status;
         $User->save();
         return redirect('user')->with('message', 'Change User status successfully');
     }
+
     public function view($id)
     {
-        $data['User']=User::find($id);
-        return view('user/view',$data);
+        $data['User'] = User::find($id);
+        return view('user/view', $data);
 
     }
 
-    public function profile(){
+    public function profile()
+    {
         $id = Auth::user()->getAuthIdentifier();
-        $data['User'] =  User::query()->where('id',$id)->first();
-        return view('user.edit',$data);
-    }
-
-    public function changePassword(){
-
+        $data['User'] = User::query()->where('id', $id)->first();
+        return view('user.edit', $data);
     }
 }
