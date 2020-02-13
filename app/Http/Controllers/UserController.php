@@ -50,7 +50,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->nivel = $request->nivel;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->save();
 
         return redirect('user')->with('message', 'User successfully added');
