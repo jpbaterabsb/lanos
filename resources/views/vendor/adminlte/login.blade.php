@@ -56,6 +56,11 @@
                     <!-- /.col -->
                 </div>
             </form>
+            <p>
+                <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}" class="text-center">
+                    {{ trans('adminlte::adminlte.i_forgot_my_password') }}
+                </a>
+            </p>
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->
